@@ -14,24 +14,46 @@ namespace indexer
         //result is split into dict and posting list
 
         //posting list is a variable length array
+        Token tokens;
+        InvertIndex index;
 
-        private List<string> tokens;
-        private List<string> normalized_tokens;
-        private Dictionary<string, List<int>> inverted_index;
-
-        public Doc_Representation(string doc_text)
+        public Doc_Representation(List<string> doc_texts)
         {
-            tokens = new List<string>();
-            normalized_tokens = new List<string>();
-            inverted_index = new Dictionary<string, List<int>>();
-            tokenize(doc_text);
-            normalize_tokens();
-            invert_index();
+            tokens = new Token(doc_texts);
+            index = new InvertIndex(tokens.normalized_tokens());
         }
 
-        private void tokenize(string doc_text)
+       
+    }
+
+
+
+    private class InvertIndex
+    {
+        private Dictionary<string, int> index;
+        private Dictionary<string, int> sorted_index;
+        private Dictionary<string, List<int>> merged_index;
+
+        public InvertIndex(Token tokens)
         {
-            string[] 
+            index = new Dictionary<string, int>();
+            sorted_index = sortIndex(index);
+            merged_index = mergeIndex(sorted_index);
+        }
+
+        private void mergeIndex()
+        {
+            foreach (string index in sorted_index)
+            {
+                if (merged_index.ContainsKey(index))
+                {
+                    merged_index[index].Add(index.Value());
+                }
+                else
+                {
+                    merged_index.Add(index, new List<int>().Add(index.Value()));
+                }
+            }
         }
     }
 }
