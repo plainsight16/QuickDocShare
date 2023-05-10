@@ -1,6 +1,6 @@
 namespace doc_representation
 {
-     private class Token
+    private class Token
     {
         public int doc_id;
         public string token;
@@ -12,7 +12,7 @@ namespace doc_representation
         }
     }
 
-    private class TokenizeDocs
+    public class TokenizeDocs
     {
         private List<string> doc_texts;
         private List<Token> tokens;
