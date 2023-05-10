@@ -1,4 +1,4 @@
-namespace indexer
+namespace doc_representation
 {
     public class Doc_Representation
     {
