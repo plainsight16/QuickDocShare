@@ -4,16 +4,7 @@ namespace indexer
     {
         //tokenization
         //normalized_tokenization
-        //invert_indexing(normalized_tokens)
 
-        //sortAlphabetically
-        //mergeMultipleOcuurences
-        //postigLists
-
-
-        //result is split into dict and posting list
-
-        //posting list is a variable length array
         Token tokens;
         InvertIndex index;
 
