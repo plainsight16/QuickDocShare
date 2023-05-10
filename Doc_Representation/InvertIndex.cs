@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace doc_representation
 {
     public class InvertIndex
@@ -13,19 +16,20 @@ namespace doc_representation
             merged_index = mergeIndex(sorted_index);
         }
 
-        public indexer(TokenizeDocs tokens)
+        public void indexer(TokenizeDocs tokens)
         {
             Dictionary<string, int> index = new Dictionary<string, int>();
             foreach (Token token in tokens)
             {
                index.Add(token.token, token.doc_id)
             }
-            return index;
         }
 
-        public sorted_index(Dictionary<string, int> index)
+        public void sortedIndex(Dictionary<string, int> index)
         {
-            return index.OrderBy(key => key.Value());
+            List<KeyValuePair<string, int>> temp = index.ToList();
+            temp.Sort((left, right) => left.Value.CompareTo(right.Value));
+            sorted_index = temp.ToDictionary(item => item.Key, item => item.Value);
         }
 
         private void mergeIndex()

@@ -13,7 +13,6 @@ namespace doc_representation
             tokens = new Tokenize(doc_texts);
             index = new InvertIndex(tokens.normalized_tokens());
         }
-
        
     }
 }
