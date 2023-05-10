@@ -59,6 +59,4 @@ namespace doc_representation
             return normalized_tokens;
         }
     } 
-
-
 }
