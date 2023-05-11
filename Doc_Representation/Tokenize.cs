@@ -1,6 +1,6 @@
 namespace doc_representation
 {
-    private class Token
+    public class Token
     {
         public int doc_id;
         public string token;
@@ -12,49 +12,51 @@ namespace doc_representation
         }
     }
 
-    public class TokenizeDocs
+    public class Tokenize
     {
         private List<string> doc_texts;
         private List<Token> tokens;
         public List<Token> normalized_tokens;
 
-        public TokenizeDocs(List<string> doc_texts)
+        public Tokenize(List<string> doc_texts)
         {
             this.doc_texts = doc_texts;
             tokens = new List<Token>();
             normalized_tokens = new List<Token>();
-            tokenize();
-            normalize();
+            tokenizer();
+            normalizer();
         }
 
-        private void tokenize()
+        private void tokenizer()
         {
 
-            // inital implementation
+            // TODO: write a new tokenizer
             foreach (string doc_text in doc_texts)
             {
+
                 string[] words = doc_text.Split(' ');
                 foreach (string word in words)
                 {
-                    tokens.Add(new Token(doc_text.Index(), word));
+                    int doc_id = doc_texts.IndexOf(doc_text);
+                    tokens.Add(new Token(doc_id, word));
                 }
             }
         }
 
-        private void normalize()
+        private void normalizer()
         {
             foreach (Token token in tokens)
             {
-                normalized_tokens.Add(new Token(token.Value().ToLower()));
+                normalized_tokens.Add(new Token(token.doc_id, token.token.ToLower()));
             }
         }
 
-        public List<Token> tokens()
+        public List<Token> getTokens()
         {
             return tokens;
         }
 
-        public List<Token> normalized_tokens()
+        public List<Token> getNormalized_tokens()
         {
             return normalized_tokens;
         }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\indexer\\indexer.csproj": {}
+    "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\Doc_Representation\\indexer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\indexer\\indexer.csproj": {
+    "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\Doc_Representation\\indexer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\indexer\\indexer.csproj",
+        "projectUniqueName": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\Doc_Representation\\indexer.csproj",
         "projectName": "indexer",
-        "projectPath": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\indexer\\indexer.csproj",
+        "projectPath": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\Doc_Representation\\indexer.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\indexer\\obj\\",
+        "outputPath": "C:\\Users\\User\\documents\\sr\\c#\\search-engine\\Doc_Representation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

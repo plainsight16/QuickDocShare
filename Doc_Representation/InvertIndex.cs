@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace doc_representation
 {
@@ -9,23 +8,26 @@ namespace doc_representation
         private Dictionary<string, int> sorted_index;
         private Dictionary<string, List<int>> merged_index;
 
-        public InvertIndex(TokenizeDocs tokens)
+        public InvertIndex(List<Token> tokens)
         {
-            index = indexer(tokens)
-            sorted_index = sortIndex(index);
-            merged_index = mergeIndex(sorted_index);
+            index = new Dictionary<string, int>();
+            sorted_index = new Dictionary<string, int>();
+            merged_index = new Dictionary<string, List<int>>();
+            indexer(tokens);
+            sortedIndex();
+            mergeIndex();
         }
 
-        public void indexer(TokenizeDocs tokens)
+        private void indexer(List<Token> tokens)
         {
             Dictionary<string, int> index = new Dictionary<string, int>();
             foreach (Token token in tokens)
             {
-               index.Add(token.token, token.doc_id)
+               index.Add(token.token, token.doc_id);
             }
         }
 
-        public void sortedIndex(Dictionary<string, int> index)
+        private void sortedIndex()
         {
             List<KeyValuePair<string, int>> temp = index.ToList();
             temp.Sort((left, right) => left.Value.CompareTo(right.Value));
@@ -34,15 +36,17 @@ namespace doc_representation
 
         private void mergeIndex()
         {
-            foreach (string index in sorted_index)
+            foreach (KeyValuePair<string, int> index in sorted_index)
             {
-                if (merged_index.ContainsKey(index))
+                if (merged_index.ContainsKey(index.Key))
                 {
-                    merged_index[index].Add(index.Value());
+                    merged_index[index.Key].Add(index.Value);
                 }
                 else
                 {
-                    merged_index.Add(index, new List<int>().Add(index.Value()));
+                    List<int> pairingList = new List<int>();
+                    pairingList.Add(index.Value);
+                    merged_index.Add(index.Key, pairingList);
                 }
             }
         }

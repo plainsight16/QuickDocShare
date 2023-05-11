@@ -5,13 +5,13 @@ namespace doc_representation
         //tokenization
         //normalized_tokenization
 
-        Token tokens;
+        Tokenize tokens;
         InvertIndex index;
 
         public Doc_Representation(List<string> doc_texts)
         {
             tokens = new Tokenize(doc_texts);
-            index = new InvertIndex(tokens.normalized_tokens());
+            index = new InvertIndex(tokens.getNormalized_tokens());
         }
        
     }
