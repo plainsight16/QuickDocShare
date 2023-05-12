@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "yGGE16M6H1+IzdwuqndOonEzF6ApGglAysm2RoHovdx9M4Y6a7w6HS/I5esalfUc2sWIQGA7oPWBQzmEcsnCVQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Julius Alibrown\\Desktop\\class\\Project\\search-engine\\DocRepresentation\\DocRepresentation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\j2n\\2.0.0\\j2n.2.0.0.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\lucene.net\\4.8.0-beta00016\\lucene.net.4.8.0-beta00016.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\lucene.net.analysis.common\\4.8.0-beta00016\\lucene.net.analysis.common.4.8.0-beta00016.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\2.0.0\\microsoft.extensions.configuration.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\microsoft.extensions.primitives\\2.0.0\\microsoft.extensions.primitives.2.0.0.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\snowball\\0.12.0\\snowball.0.12.0.nupkg.sha512",
+    "C:\\Users\\Julius Alibrown\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.4.0\\system.runtime.compilerservices.unsafe.4.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

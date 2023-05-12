@@ -1,3 +1,8 @@
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
+
 namespace doc_representation
 {
     public class Token
@@ -47,8 +52,32 @@ namespace doc_representation
         {
             foreach (Token token in tokens)
             {
-                normalized_tokens.Add(new Token(token.doc_id, token.token.ToLower()));
+                normalized_tokens.Add(new Token(token.doc_id, Normalize(token.token));
             }
+        }
+
+        private static string Normalize(string input)
+        {
+            // Convert all characters to lowercase
+            input = input.ToLower(CultureInfo.InvariantCulture);
+
+            // Remove all punctuation marks and symbols
+            input = new string(input.Where(c => !char.IsPunctuation(c) && !char.IsSymbol(c)).ToArray());
+
+            // Expand contractions (optional)
+            input = Regex.Replace(input, @"\b(can't|won't|didn't|doesn't|isn't|aren't|haven't|hasn't)\b", match =>
+                match.Value.Replace("'", "") + " not", RegexOptions.IgnoreCase);
+
+            // Remove diacritics (optional)
+            input = input.Normalize(NormalizationForm.FormD);
+            input = new string(input.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) !=
+                UnicodeCategory.NonSpacingMark).ToArray());
+            input = input.Normalize(NormalizationForm.FormC);
+
+            // Stem or lemmatize words (optional)
+            // (you'll need to use a third-party library or implement your own algorithm for this step)
+
+            return input;
         }
 
         public List<Token> getTokens()
