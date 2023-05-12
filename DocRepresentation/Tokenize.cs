@@ -90,12 +90,12 @@ namespace DocRepresentation
             return stemmer.Current;
         }
 
-        public List<Token> getTokens()
+        public List<Token> GetTokens()
         {
             return tokens;
         }
 
-        public List<Token> getNormalized_tokens()
+        public List<Token> GetNormalized_tokens()
         {
             return normalized_tokens;
         }
