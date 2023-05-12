@@ -1,16 +1,20 @@
+﻿using Lucene.Net.Tartarus.Snowball.Ext;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace doc_representation
+namespace DocRepresentation
 {
     public class Token
     {
         public int doc_id;
         public string token;
 
-        public Token (int doc_id, string token)
+        public Token(int doc_id, string token)
         {
             this.doc_id = doc_id;
             this.token = token;
@@ -52,11 +56,11 @@ namespace doc_representation
         {
             foreach (Token token in tokens)
             {
-                normalized_tokens.Add(new Token(token.doc_id, Normalize(token.token));
+                normalized_tokens.Add(new Token(token.doc_id, Normalize(token.token)));
             }
         }
 
-        private static string Normalize(string input)
+        public static string Normalize(string input)
         {
             // Convert all characters to lowercase
             input = input.ToLower(CultureInfo.InvariantCulture);
@@ -75,9 +79,15 @@ namespace doc_representation
             input = input.Normalize(NormalizationForm.FormC);
 
             // Stem or lemmatize words (optional)
-            // (you'll need to use a third-party library or implement your own algorithm for this step)
+            var stemmer = new EnglishStemmer();
+            stemmer.SetCurrent(input);
+            bool stem = stemmer.Stem();
 
-            return input;
+            //Console.WriteLine(stem);
+            Console.WriteLine(input);
+            Console.WriteLine(stemmer.Current);
+
+            return stemmer.Current;
         }
 
         public List<Token> getTokens()
@@ -89,5 +99,5 @@ namespace doc_representation
         {
             return normalized_tokens;
         }
-    } 
+    }
 }
