@@ -38,8 +38,6 @@ namespace DocRepresentation
 
         private void tokenizer()
         {
-
-            // TODO: write a new tokenizer
             foreach (string doc_text in doc_texts)
             {
 
@@ -52,7 +50,7 @@ namespace DocRepresentation
             }
         }
 
-        private void normalizer()
+        private void Normalize()
         {
             foreach (Token token in tokens)
             {
@@ -60,7 +58,7 @@ namespace DocRepresentation
             }
         }
 
-        public static string Normalize(string input)
+        public string Normalize(string input)
         {
             // Convert all characters to lowercase
             input = input.ToLower(CultureInfo.InvariantCulture);
