@@ -1,5 +1,0 @@
-C:\Users\User\documents\sr\c#\search-engine\Doc_Representation\obj\Debug\net7.0\indexer.csproj.AssemblyReference.cache
-C:\Users\User\documents\sr\c#\search-engine\Doc_Representation\obj\Debug\net7.0\indexer.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\User\documents\sr\c#\search-engine\Doc_Representation\obj\Debug\net7.0\indexer.AssemblyInfoInputs.cache
-C:\Users\User\documents\sr\c#\search-engine\Doc_Representation\obj\Debug\net7.0\indexer.AssemblyInfo.cs
-C:\Users\User\documents\sr\c#\search-engine\Doc_Representation\obj\Debug\net7.0\indexer.csproj.CoreCompileInputs.cache
