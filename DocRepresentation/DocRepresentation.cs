@@ -14,7 +14,7 @@ namespace DocRepresentation
         public DocRepresentation(List<string> doc_texts)
         {
             tokens = new Tokenize(doc_texts);
-            index = new InvertIndex(tokens.getNormalized_tokens());
+            index = new InvertIndex(tokens.GetNormalized_tokens());
         }
     }
 }
