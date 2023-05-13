@@ -33,7 +33,7 @@ namespace DocRepresentation
             tokens = new List<Token>();
             normalized_tokens = new List<Token>();
             tokenizer();
-            normalizer();
+            Normalize();
         }
 
         private void tokenizer()
