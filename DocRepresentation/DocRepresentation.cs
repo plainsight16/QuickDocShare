@@ -8,13 +8,11 @@ namespace DocRepresentation
 {
     public class DocRepresentation
     {
-        DocumentHandler doc_handler;
         Tokenize tokens;
         InvertIndex index;
-
-
         public DocRepresentation(List<string> doc_texts)
         {
+           
             tokens = new Tokenize(doc_texts);
             index = new InvertIndex(tokens.GetNormalized_tokens());
 
