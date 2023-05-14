@@ -8,8 +8,10 @@ namespace DocRepresentation
 {
     public class DocRepresentation
     {
+        DocumentHandler doc_handler;
         Tokenize tokens;
         InvertIndex index;
+
 
         public DocRepresentation(List<string> doc_texts)
         {

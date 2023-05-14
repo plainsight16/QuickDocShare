@@ -8,51 +8,47 @@ namespace DocRepresentation
 {
     public class InvertIndex
     {
-        private Dictionary<string, int> index;
-        private Dictionary<string, int> sorted_index;
         private Dictionary<string, List<int>> merged_index;
 
         public InvertIndex(List<Token> tokens)
         {
-            index = new Dictionary<string, int>();
-            sorted_index = new Dictionary<string, int>();
             merged_index = new Dictionary<string, List<int>>();
-            indexer(tokens);
-            sortedIndex();
-            mergeIndex();
+
+            List<Token> sorted_index = sortedIndex(tokens);
+            mergeIndex(sorted_index);
         }
 
-        private void indexer(List<Token> tokens)
+        private List<Token> sortedIndex(List<Token> tokens)
         {
-            Dictionary<string, int> index = new Dictionary<string, int>();
+            List<Token> sortedTokens = tokens.OrderBy(token => token.token).ThenBy(token => token.doc_id).ToList();
+            return sortedTokens;
+        }
+
+        private void mergeIndex(List<Token> tokens)
+        {
             foreach (Token token in tokens)
             {
-                index.Add(token.token, token.doc_id);
-            }
-        }
-
-        private void sortedIndex()
-        {
-            List<KeyValuePair<string, int>> temp = index.ToList();
-            temp.Sort((left, right) => left.Value.CompareTo(right.Value));
-            sorted_index = temp.ToDictionary(item => item.Key, item => item.Value);
-        }
-
-        private void mergeIndex()
-        {
-            foreach (KeyValuePair<string, int> index in sorted_index)
-            {
-                if (merged_index.ContainsKey(index.Key))
+                if (merged_index.ContainsKey(token.token))
                 {
-                    merged_index[index.Key].Add(index.Value);
+                    if (!merged_index[token.token].Contains(token.doc_id))
+                    {
+                        merged_index[token.token].Add(token.doc_id);
+                    }
                 }
                 else
                 {
-                    List<int> pairingList = new List<int>();
-                    pairingList.Add(index.Value);
-                    merged_index.Add(index.Key, pairingList);
+                    List<int> pairingList = new List<int>
+                    {
+                        token.doc_id
+                    };
+                    merged_index.Add(token.token, pairingList);
                 }
             }
+        }
+
+        public Dictionary<string, List<int>> GetMergedIndex()
+        {
+            return merged_index;
         }
     }
 }

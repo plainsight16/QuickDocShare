@@ -44,7 +44,8 @@ namespace DocRepresentation
                 string[] words = doc_text.Split(' ');
                 foreach (string word in words)
                 {
-                    int doc_id = doc_texts.IndexOf(doc_text);
+                    // index starts from 0 but ID starts from 1
+                    int doc_id = doc_texts.IndexOf(doc_text) + 1;
                     tokens.Add(new Token(doc_id, word));
                 }
             }
@@ -77,15 +78,15 @@ namespace DocRepresentation
             input = input.Normalize(NormalizationForm.FormC);
 
             // Stem or lemmatize words (optional)
-            var stemmer = new EnglishStemmer();
-            stemmer.SetCurrent(input);
-            bool stem = stemmer.Stem();
+            //var stemmer = new EnglishStemmer();
+            //stemmer.SetCurrent(input);
+            //bool stem = stemmer.Stem();
 
             //Console.WriteLine(stem);
-            Console.WriteLine(input);
-            Console.WriteLine(stemmer.Current);
+            //Console.WriteLine(input);
+            //Console.WriteLine(stemmer.Current);
 
-            return stemmer.Current;
+            return input;
         }
 
         public List<Token> GetTokens()
