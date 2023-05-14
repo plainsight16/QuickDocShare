@@ -1,4 +1,4 @@
-﻿using Lucene.Net.Tartarus.Snowball.Ext;
+﻿//using Lucene.Net.Tartarus.Snowball.Ext;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
