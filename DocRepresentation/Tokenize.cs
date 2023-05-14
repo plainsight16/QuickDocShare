@@ -9,11 +9,26 @@ using System.Threading.Tasks;
 
 namespace DocRepresentation
 {
+    /// <summary>
+    /// Represents a token, consisting of a document ID and a token string.
+    /// </summary>
     public class Token
     {
+        /// <summary>
+        /// The ID of the document that this token belongs to.
+        /// </summary>
         public int doc_id;
+
+        /// <summary>
+        /// The token value.
+        /// </summary>
         public string token;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> class with the specified document ID and token.
+        /// </summary>
+        /// <param name="doc_id">The document ID associated with the token.</param>
+        /// <param name="token">The token string.</param
         public Token(int doc_id, string token)
         {
             this.doc_id = doc_id;
@@ -21,12 +36,19 @@ namespace DocRepresentation
         }
     }
 
+    /// <summary>
+    /// Represents a class responsible for tokenizing and normalizing a list of document texts.
+    /// </summary>
     public class Tokenize
     {
         private List<string> doc_texts;
         private List<Token> tokens;
         public List<Token> normalized_tokens;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Tokenize"/> class with the specified list of document texts.
+        /// </summary>
+        /// <param name="doc_texts">The list of document texts to tokenize and normalize.</param>
         public Tokenize(List<string> doc_texts)
         {
             this.doc_texts = doc_texts;
@@ -36,6 +58,9 @@ namespace DocRepresentation
             Normalize();
         }
 
+        /// <summary>
+        /// Tokenizes the document texts and creates tokens.
+        /// </summary>
         private void tokenizer()
         {
             foreach (string doc_text in doc_texts)
@@ -51,6 +76,9 @@ namespace DocRepresentation
             }
         }
 
+        /// <summary>
+        /// Normalizes the tokens by applying various normalization techniques.
+        /// </summary>
         private void Normalize()
         {
             foreach (Token token in tokens)
@@ -59,6 +87,12 @@ namespace DocRepresentation
             }
         }
 
+        /// <summary>
+        /// Normalizes the input string by converting it to lowercase, removing punctuation marks and symbols,
+        /// expanding contractions, and removing diacritics.
+        /// </summary>
+        /// <param name="input">The input string to normalize.</param>
+        /// <returns>The normalized string.</returns>
         public string Normalize(string input)
         {
             // Convert all characters to lowercase
@@ -89,11 +123,19 @@ namespace DocRepresentation
             return input;
         }
 
+        /// <summary>
+        /// Gets the list of tokens.
+        /// </summary>
+        /// <returns>The list of tokens.</returns>
         public List<Token> GetTokens()
         {
             return tokens;
         }
 
+        /// <summary>
+        /// Gets the list of normalized tokens.
+        /// </summary>
+        /// <returns>The list of normalized tokens.</returns>
         public List<Token> GetNormalized_tokens()
         {
             return normalized_tokens;
