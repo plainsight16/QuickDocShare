@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocRepresentation", "DocRepresentation.csproj", "{9185A301-4375-4956-9BB4-E4872879B9BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocRepresentation", "DocRepresentation.csproj", "{9185A301-4375-4956-9BB4-E4872879B9BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BC135B48-6E5A-478F-8887-606BECE04232} = {BC135B48-6E5A-478F-8887-606BECE04232}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocHandler", "..\DocHandler\DocHandler.csproj", "{BC135B48-6E5A-478F-8887-606BECE04232}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC135B48-6E5A-478F-8887-606BECE04232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC135B48-6E5A-478F-8887-606BECE04232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC135B48-6E5A-478F-8887-606BECE04232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC135B48-6E5A-478F-8887-606BECE04232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿//using Lucene.Net.Tartarus.Snowball.Ext;
+using Lucene.Net.Tartarus.Snowball.Ext;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -112,15 +113,15 @@ namespace DocRepresentation
             input = input.Normalize(NormalizationForm.FormC);
 
             // Stem or lemmatize words (optional)
-            //var stemmer = new EnglishStemmer();
-            //stemmer.SetCurrent(input);
-            //bool stem = stemmer.Stem();
+            var stemmer = new EnglishStemmer();
+            stemmer.SetCurrent(input);
+            bool stem = stemmer.Stem();
 
             //Console.WriteLine(stem);
             //Console.WriteLine(input);
             //Console.WriteLine(stemmer.Current);
 
-            return input;
+            return stemmer.Current;
         }
 
         /// <summary>

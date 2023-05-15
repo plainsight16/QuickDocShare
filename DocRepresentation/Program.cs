@@ -1,4 +1,7 @@
-﻿namespace DocRepresentation
+﻿using DocHandler;
+using System.Reflection.Metadata;
+
+namespace DocRepresentation
 {
     internal class Program
     {
@@ -8,12 +11,20 @@
             //Tokenize.Normalize("Sending");
             //Tokenize.Normalize("SENDS");
 
-            List<string> doc_texts = new List<string>();
-            // DOC 1
-            doc_texts.Add("I did enact Julius Caesar: I was killed i' the Capitol; Brutus killed me.");
+            DocumentHandler doc_handler = new SlideShowHandler(null);
+            string doc_1_texts = doc_handler.parseDocument(@"C:\Users\Julius Alibrown\Desktop\class\Project\search-engine\DocHandler\powerpoint_file.pptx");
 
-            // DOC 2
-            doc_texts.Add("So let it be with Caesar. The noble Brutus hath told you Ceasar was ambitious:");
+            DocumentHandler doc_handler2 = new SlideShowHandler(null);
+            string doc_2_texts = doc_handler2.parseDocument(@"C:\Users\Julius Alibrown\Desktop\class\Project\search-engine\DocHandler\powerpoint_file_2.pptx");
+
+            List<string> doc_texts = new List<string>
+            {
+                // DOC 1
+                doc_1_texts,
+
+                // DOC 2
+                doc_2_texts
+            };
 
 
             new DocRepresentation(doc_texts);
