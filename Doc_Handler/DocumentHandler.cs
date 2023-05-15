@@ -1,3 +1,9 @@
+using System;
+using System.IO;
+using NPOI.HSLF.Extractor;
+using NPOI.SS.UserModel;
+
+
 namespace DocHandler
 {
     public abstract class DocumentHandler
@@ -68,11 +74,6 @@ namespace DocHandler
             {
                 base.handleRequest(fileExtension);
             }
-        }
-
-        public override string parseDocument(string filename)
-        {
-            return "";
         }
 
     }
