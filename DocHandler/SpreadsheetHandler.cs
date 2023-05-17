@@ -9,7 +9,7 @@ namespace DocHandler
 
         public override string parseDocument(string fileExtension, string fileName)
         {
-            if(fileExtension == ".xlsx")
+            if(fileExtension.Equals(".xlsx"))
             {
                 return parseDocument(fileName);
             }
@@ -18,26 +18,31 @@ namespace DocHandler
 
         public string parseDocument(string filename)
         {
-            StringBuilder sb = new StringBuilder();
+            string result = string.Empty;
 
             using (ExcelPackage package = new ExcelPackage(new FileInfo(filename)))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
 
-                // Loop through each row in the worksheet
-                for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
+                if (worksheet != null)
                 {
-                    // Loop through each column in the row
-                    for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+                    for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
                     {
-                        // Append the cell value to the string builder
-                        sb.Append(worksheet.Cells[row, col].Value?.ToString() ?? string.Empty);
-                        sb.Append("\t"); // Add a tab separator between columns
+                        for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+                        {
+                            result += worksheet.Cells[row, col].Value?.ToString() ?? string.Empty;
+                            result += "\t";
+                        }
+
+                        result += "\n";
                     }
-                    sb.AppendLine(); // Add a line break after each row
+                }
+                else
+                {
+                    result = null;
                 }
             }
-            return sb.ToString();
+            return result;
         }
     }
 }

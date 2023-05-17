@@ -13,7 +13,7 @@ namespace DocHandler
 
         public override string parseDocument(string fileExtension, string fileName)
         {
-            if(fileExtension == ".pptx")
+            if(fileExtension.Equals(".pptx"))
             {
                 return parseDocument(fileName);
             }
@@ -39,13 +39,9 @@ namespace DocHandler
                             text += GetSlideText(slide);
                         }
                     }
-
-                    Console.WriteLine(text);
-
                     return text;
                 }
             }
-
             return null;
         }
 
@@ -56,7 +52,6 @@ namespace DocHandler
             {
                 text += element.Text;
             }
-
             return text;
         }
     }

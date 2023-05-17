@@ -3,12 +3,10 @@ namespace DocHandler
     public class Documents
     {
         private string FolderPath;
-        DocumentHandler docHandler;
 
         public Documents(string folderPath)
         {
             this.FolderPath = folderPath;
-            docHandler = new SlideShowHandler(new TextDocumentHandler(new SpreadsheetHandler(null)));
         }
 
         public string[] GetFilesInFolder()
@@ -28,6 +26,7 @@ namespace DocHandler
             string[] filePaths = GetFilesInFolder();
             foreach (string filepath in filePaths)
             {
+                DocumentHandler docHandler = new SpreadsheetHandler(new SlideShowHandler(new TextDocumentHandler(null)));
                 string text = docHandler.parseDocument(Path.GetExtension(filepath), filepath);
                 doc_texts.Add(text);
             }

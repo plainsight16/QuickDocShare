@@ -5,17 +5,18 @@ namespace DocHandler
         public TextDocumentHandler(DocumentHandler next) : base(next)
         {}
 
-        public override string parseDocument(string fileExtension, string fileName)
+        public override string parseDocument(string fileExtension, string filePath)
         {
-            if(fileExtension == ".txt")
+            if(fileExtension.Equals(".txt"))
             {
-                return parseDocument(fileName);
+                return parseDocument(filePath);
             }
-            return base.parseDocument(fileExtension, fileName);
+            return base.parseDocument(fileExtension, filePath);
         }
-        public string parseDocument(string filename)
+        public string parseDocument(string filePath)
         {
-            return "";
+            string text = File.ReadAllText(filePath);
+            return text;
         }
     }
 }
