@@ -5,7 +5,12 @@ namespace DocHandler
     {
         static void Main(string[] args)
         {
-          List<string> doc_texts = new Documents(@".\Files").doc_texts;
+          List<string> doc_texts = new Documents(@".\Files").GetDocTexts();
+          foreach(string doc in doc_texts)
+          {
+            Console.WriteLine(doc);
+          }
         }
+        
     }
 }

@@ -7,7 +7,7 @@ namespace DocHandler
 
         public override string parseDocument(string fileExtension, string fileName)
         {
-            if(fileExtension == "txt")
+            if(fileExtension == ".txt")
             {
                 return parseDocument(fileName);
             }
