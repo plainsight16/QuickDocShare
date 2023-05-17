@@ -2,21 +2,15 @@ using OfficeOpenXml;
 using System.Text;
 namespace DocHandler
 {
-    public class SpreadsheetHandler: DocumentHandler
+    public class SpreadsheetParser: DocumentParser
     {
-        public SpreadsheetHandler(DocumentHandler next) : base(next)
-        {}
-
-        public override string parseDocument(string fileExtension, string fileName)
+        public override bool CanParse(string fileName)
         {
-            if(fileExtension.Equals(".xlsx"))
-            {
-                return parseDocument(fileName);
-            }
-            return base.parseDocument(fileExtension, fileName);
+            string fileExtension = Path.GetExtension(fileName);
+            return fileExtension.Equals(".xlsx");
         }
 
-        public string parseDocument(string filename)
+        public override string parseDocument(string filename)
         {
             string result = string.Empty;
 

@@ -1,23 +1,57 @@
 namespace DocHandler
 {
-    public abstract class DocumentHandler
+    public class DocumentHandler
     {
-        // The next handler in the chain
-        protected DocumentHandler next;
-        // The constructor accepts the next handler in the chain
-        public DocumentHandler(DocumentHandler next)
+        private string FolderPath;
+        private DocumentParser parser;
+
+        public DocumentHandler(string folderPath)
         {
-            this.next = next;
+            FolderPath = folderPath;
+            BuildHandler();
+        }
+        private void BuildHandler()
+        {
+            DocumentParser slideshowParser = new SlideShowParser();
+            DocumentParser textDocumentParser = new TextDocumentParser();
+            DocumentParser spreadsheetParser = new SpreadsheetParser();
+            slideshowParser.SetNext(spreadsheetParser);
+            spreadsheetParser.SetNext(textDocumentParser);
+            parser = slideshowParser;
+        }
+        public string[] GetFilesInFolder()
+        {
+            // Check if the folder exists
+            if (!Directory.Exists(FolderPath))
+            {
+                throw new DirectoryNotFoundException("Folder not found: " + FolderPath);
+            }
+            // Get the list of files in the folder
+            return Directory.GetFiles(FolderPath);
         }
 
-        // The method that handles the request
-        public virtual string parseDocument(string fileExtension, string fileName)
+        public List<string> GetDocTexts()
         {
-            if(next != null)
+            List<string> doc_texts = new List<string>();
+            string[] filePaths = GetFilesInFolder();
+            foreach (string filepath in filePaths)
             {
-                next.parseDocument(fileExtension, fileName);
+                DocumentParser currentParser = parser;
+                bool parsed = false;
+                while(currentParser != null && !parsed){
+                    if(currentParser.CanParse(filepath))
+                    {
+                        string text = currentParser.parseDocument(filepath);
+                        parsed = true;
+                        doc_texts.Add(text);
+                    }
+                    else
+                    {
+                        currentParser = currentParser.next;
+                    }
+                }
             }
-            return "File extension not supported";
+            return doc_texts;
         }
     }
 }

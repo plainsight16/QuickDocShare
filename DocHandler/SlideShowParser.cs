@@ -6,21 +6,14 @@ using DocumentFormat.OpenXml.Presentation;
 
 namespace DocHandler
 {
-    public class SlideShowHandler : DocumentHandler
+    public class SlideShowParser : DocumentParser
     {
-        public SlideShowHandler(DocumentHandler next) : base(next)
-        {}
-
-        public override string parseDocument(string fileExtension, string fileName)
+        public override bool CanParse(string filePath)
         {
-            if(fileExtension.Equals(".pptx"))
-            {
-                return parseDocument(fileName);
-            }
-            return base.parseDocument(fileExtension, fileName);
+            string fileExtension = Path.GetExtension(filePath);
+            return fileExtension.Equals(".pptx");
         }
-
-        public string parseDocument(string filePath)
+        public override string parseDocument(string filePath)
         {
             using (PresentationDocument presentationDocument = PresentationDocument.Open(filePath, false))
             {
