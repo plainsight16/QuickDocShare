@@ -11,69 +11,13 @@ namespace DocHandler
         }
 
         // The method that handles the request
-        public virtual void handleRequest(String fileExtension)
+        public virtual string parseDocument(string fileExtension, string fileName)
         {
             if(next != null)
             {
-                next.handleRequest(fileExtension);
+                next.parseDocument(fileExtension, fileName);
             }
-            else if(next == null)
-            {
-                Console.WriteLine("File extension not supported");
-            }
+            return "File extension not supported";
         }
-
-        public abstract string parseDocument(string filename);
-
-        
-    }
-
-    // The concrete handlers
-   
-
-    public class TextDocumentHandler : DocumentHandler
-    {
-        public TextDocumentHandler(DocumentHandler next) : base(next)
-        {}
-
-        public override void handleRequest(String fileExtension)
-        {
-            if(fileExtension == "txt")
-            {
-                Console.WriteLine("Parsing txt file...");
-            }
-            else if (next != null)
-            {
-                base.handleRequest(fileExtension);
-            }
-        }
-        public override string parseDocument(string filename)
-        {
-            return "";
-        }
-    }
-
-    public class SpreadsheetHandler: DocumentHandler
-    {
-        public SpreadsheetHandler(DocumentHandler next) : base(next)
-        {}
-
-        public override void handleRequest(String fileExtension)
-        {
-            if(fileExtension == "xlsx")
-            {
-                Console.WriteLine("Parsing xlsx file...");
-            }
-            else
-            {
-                base.handleRequest(fileExtension);
-            }
-        }
-
-        public override string parseDocument(string filename)
-        {
-            return "";
-        }
-
     }
 }

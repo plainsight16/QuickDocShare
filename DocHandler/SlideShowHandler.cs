@@ -11,19 +11,16 @@ namespace DocHandler
         public SlideShowHandler(DocumentHandler next) : base(next)
         {}
 
-        public override void handleRequest(String fileExtension)
+        public override string parseDocument(string fileExtension, string fileName)
         {
-            if(fileExtension == "pptx")
+            if(fileExtension == ".pptx")
             {
-                Console.WriteLine("Parsing pptx file...");
+                return parseDocument(fileName);
             }
-            else if (next != null)
-            {
-                base.handleRequest(fileExtension);
-            }
+            return base.parseDocument(fileExtension, fileName);
         }
 
-        public override string parseDocument(string filePath)
+        public string parseDocument(string filePath)
         {
             using (PresentationDocument presentationDocument = PresentationDocument.Open(filePath, false))
             {
