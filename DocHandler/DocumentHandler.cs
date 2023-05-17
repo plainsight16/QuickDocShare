@@ -17,10 +17,12 @@ namespace DocHandler
             DocumentParser spreadsheetParser = new SpreadsheetParser();
             DocumentParser HtmlParser = new HtmlParser();
             DocumentParser XmlParser = new XmlParser();
+            DocumentParser PdfParser = new PdfParser();
             slideshowParser.SetNext(spreadsheetParser);
             spreadsheetParser.SetNext(textDocumentParser);
             textDocumentParser.SetNext(HtmlParser);
             HtmlParser.SetNext(XmlParser);
+            XmlParser.SetNext(PdfParser);
             parser = slideshowParser;
         }
         public string[] GetFilesInFolder()
