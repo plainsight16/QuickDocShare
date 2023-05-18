@@ -1,5 +1,8 @@
-using OfficeOpenXml;
 using System.Text;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace DocHandler
 {
     public class SpreadsheetParser: DocumentParser
@@ -12,31 +15,62 @@ namespace DocHandler
 
         public override string parseDocument(string filename)
         {
-            string result = string.Empty;
-
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(filename)))
+            using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(filename, false))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-
-                if (worksheet != null)
+                WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+                if (workbookPart != null)
                 {
-                    for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
+                    WorksheetPart worksheetPart = workbookPart.WorksheetParts.FirstOrDefault();
+                    if (worksheetPart != null)
                     {
-                        for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
-                        {
-                            result += worksheet.Cells[row, col].Value?.ToString() ?? string.Empty;
-                            result += "\t";
-                        }
+                        List<OpenXmlElement> sheetData = worksheetPart.Worksheet.Descendants<Row>().Cast<OpenXmlElement>().ToList();
 
-                        result += "\n";
+                        if (sheetData != null)
+                        {
+                            string text = "";
+                            foreach (Row row in sheetData)
+                            {
+                                foreach (Cell cell in row.Elements<Cell>())
+                                {
+                                    if (cell.CellValue != null)
+                                    {
+                                        text += GetCellValue(cell, workbookPart) + " ";
+                                    }
+                                }
+                                text += Environment.NewLine;
+                            }
+
+                            Console.WriteLine(text);
+
+                            return text;
+                        }
                     }
                 }
-                else
+            }
+
+            return null;
+        }
+
+        private string GetCellValue(Cell cell, WorkbookPart workbookPart)
+        {
+            string value = cell.InnerText;
+
+            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            {
+                int sharedStringId = int.Parse(value);
+                SharedStringTablePart sharedStringTablePart = workbookPart.SharedStringTablePart;
+                if (sharedStringTablePart != null)
                 {
-                    result = null;
+                    SharedStringItem sharedStringItem = sharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(sharedStringId);
+                    if (sharedStringItem != null)
+                    {
+                        value = sharedStringItem.Text.Text;
+                    }
                 }
             }
-            return result;
+
+            return value;
         }
+
     }
 }

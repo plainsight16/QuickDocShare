@@ -7,7 +7,7 @@ namespace DocRepresentation
     {
         static void Main(string[] args)
         {
-            List<string> doc_texts = new DocumentHandler(@"..\.\Files").GetDocTexts();
+            List<string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
             new DocRepresentation(doc_texts);
         }
     }
