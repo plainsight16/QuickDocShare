@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DocRepresentation
 {
-    public class DocRepresentation
+    public class DocumentRepresentation
     {
         Tokenize tokens;
         InvertIndex index;
-        public DocRepresentation(List<string> doc_texts)
+        public DocumentRepresentation(List<string> doc_texts)
         {
            
             tokens = new Tokenize(doc_texts);
