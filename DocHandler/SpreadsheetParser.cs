@@ -40,7 +40,7 @@ namespace DocHandler
                                 text += Environment.NewLine;
                             }
 
-                            Console.WriteLine(text);
+                            //Console.WriteLine(text);
 
                             return text;
                         }

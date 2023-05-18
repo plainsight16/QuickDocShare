@@ -70,9 +70,13 @@ namespace DocRepresentation
                 string[] words = doc_text.Split(' ');
                 foreach (string word in words)
                 {
-                    // index starts from 0 but ID starts from 1
-                    int doc_id = doc_texts.IndexOf(doc_text) + 1;
-                    tokens.Add(new Token(doc_id, word));
+                    string token = word.Trim();
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        // index starts from 0 but ID starts from 1
+                        int doc_id = doc_texts.IndexOf(doc_text) + 1;
+                        tokens.Add(new Token(doc_id, token));
+                    }
                 }
             }
         }

@@ -28,6 +28,8 @@ namespace DocHandler
                 }
             }
 
+            //Console.WriteLine(sb.ToString());
+
             return sb.ToString();
         }
     }    
