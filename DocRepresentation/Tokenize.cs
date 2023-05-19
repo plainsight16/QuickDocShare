@@ -104,7 +104,7 @@ namespace DocRepresentation
         /// </summary>
         /// <param name="input">The input string to normalize.</param>
         /// <returns>The normalized string.</returns>
-        public string Normalize(string input)
+        public static string Normalize(string input)
         {
             // Convert all characters to lowercase
             input = input.ToLower(CultureInfo.InvariantCulture);

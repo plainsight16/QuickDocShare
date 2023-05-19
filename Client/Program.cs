@@ -14,7 +14,7 @@ namespace Client
             Dictionary<string, List<int>> mergedIndex = docRep.GetMergedIndex();
 
             Ranker ranker = new Ranker(mergedIndex);
-            string query = "what is networking?";
+            string query = "project";
             List<int> rankedDocuments = ranker.RankQuery(query);
 
             foreach (var item in rankedDocuments)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocRepresentation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,18 @@ namespace DocRanker
 
         public List<int> RankQuery(string query)
         {
-            string[] queryWords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] rawQueryWords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] queryWords = new string[] {};
+            List<string> normalizedWords = new List<string>();
+
+            foreach (string item in rawQueryWords)
+            {
+                string normalizedWord = Tokenize.Normalize(item);
+                Console.WriteLine(normalizedWord);
+                normalizedWords.Add(normalizedWord);
+            }
+
+            queryWords = normalizedWords.ToArray();
 
             Dictionary<string, int> queryTermFrequencies = CalculateTermFrequencies(queryWords);
 
@@ -48,6 +60,11 @@ namespace DocRanker
             }
 
             List<int> rankedDocuments = documentScores.OrderByDescending(d => d.Value).Select(d => d.Key).ToList();
+
+            foreach (var item in documentScores)
+            {
+                Console.WriteLine("Doc Id: {0}, Score: {1}", item.Key, item.Value);
+            }
 
             return rankedDocuments;
         }
