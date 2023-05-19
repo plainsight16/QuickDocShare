@@ -41,9 +41,9 @@ namespace DocHandler
             return Directory.GetFiles(FolderPath);
         }
 
-        public List<string> GetDocTexts()
+        public Dictionary<string, string> GetDocTexts()
         {
-            List<string> doc_texts = new List<string>();
+            Dictionary<string, string> doc_texts = new Dictionary<string, string>();
             string[] filePaths = GetFilesInFolder();
             foreach (string filepath in filePaths)
             {
@@ -54,7 +54,7 @@ namespace DocHandler
                     {
                         string text = currentParser.parseDocument(filepath);
                         parsed = true;
-                        doc_texts.Add(text);
+                        doc_texts.Add(filepath, text);
                     }
                     else
                     {
