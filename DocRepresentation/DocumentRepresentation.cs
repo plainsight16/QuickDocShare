@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace DocRepresentation
     {
         Tokenize tokens;
         InvertIndex index;
-        Dictionary<string, List<int>> mergedIndex;
-        Dictionary<int, string> documentPathAndID;
+        public Dictionary<string, List<int>> mergedIndex { get; set; }
+        public Dictionary<int, string> documentPathAndID { get; set; }
         public DocumentRepresentation(Dictionary<string, string> doc_texts)
         {
            
@@ -19,6 +20,7 @@ namespace DocRepresentation
             index = new InvertIndex(tokens.GetNormalized_tokens());
             mergedIndex = index.GetMergedIndex();
             documentPathAndID = tokens.GetDocumentPathAndID();
+            LocalStorage.SaveObjectToFile(this);
 
             //foreach (var kvp in index.GetMergedIndex())
             //{
@@ -26,14 +28,11 @@ namespace DocRepresentation
             //}
         }
 
-        public Dictionary<string, List<int>> GetMergedIndex()
+        // Parameterless constructor for deserialization
+        [JsonConstructor]
+        public DocumentRepresentation()
         {
-            return mergedIndex;
-        }
-
-        public Dictionary<int, string> GetDocumentPathAndId()
-        {
-            return documentPathAndID;
+            // Empty parameterless constructor
         }
     }
 }

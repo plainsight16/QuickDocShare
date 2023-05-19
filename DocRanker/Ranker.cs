@@ -29,7 +29,7 @@ namespace DocRanker
             foreach (string item in rawQueryWords)
             {
                 string normalizedWord = Tokenize.Normalize(item);
-                Console.WriteLine(normalizedWord);
+                //Console.WriteLine(normalizedWord);
                 normalizedWords.Add(normalizedWord);
             }
 
@@ -61,10 +61,10 @@ namespace DocRanker
 
             List<int> rankedDocuments = documentScores.OrderByDescending(d => d.Value).Select(d => d.Key).ToList();
 
-            foreach (var item in documentScores)
-            {
-                Console.WriteLine("Doc Id: {0}, Score: {1}", item.Key, item.Value);
-            }
+            //foreach (var item in documentScores)
+            //{
+            //    Console.WriteLine("Doc Id: {0}, Score: {1}", item.Key, item.Value);
+            //}
 
             return rankedDocuments;
         }

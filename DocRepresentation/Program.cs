@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using DocHandler;
+using System.Reflection.Metadata;
 
 namespace DocRepresentation
 {
@@ -6,7 +7,8 @@ namespace DocRepresentation
     {
         static void Main(string[] args)
         {
-
+            Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
+            DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
         }
     }
 }

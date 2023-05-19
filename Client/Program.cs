@@ -8,13 +8,12 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
-            DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
-            Dictionary<int, string> documentPathAndID = docRep.GetDocumentPathAndId();
-            Dictionary<string, List<int>> mergedIndex = docRep.GetMergedIndex();
+            DocumentRepresentation docRep = LocalStorage.LoadObjectFromFile();
+            Dictionary<int, string> documentPathAndID = docRep.documentPathAndID;
+            Dictionary<string, List<int>> mergedIndex = docRep.mergedIndex;
 
             Ranker ranker = new Ranker(mergedIndex);
-            string query = "project";
+            string query = "Project Execution";
             List<int> rankedDocuments = ranker.RankQuery(query);
 
             foreach (var item in rankedDocuments)
