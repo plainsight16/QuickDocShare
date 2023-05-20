@@ -28,7 +28,7 @@ namespace DocRepresentation
         /// Initializes a new instance of the <see cref="Token"/> class with the specified document ID and token.
         /// </summary>
         /// <param name="doc_id">The document ID associated with the token.</param>
-        /// <param name="token">The token string.</param
+        /// <param name="token">The token string.</param>
         public Token(int doc_id, string token)
         {
             this.doc_id = doc_id;
