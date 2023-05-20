@@ -1,17 +1,29 @@
 namespace DocHandler
 {
+    /// <summary>
+    /// Represents a document handler that processes files in a specified folder.
+    /// </summary>
     public class DocumentHandler
     {
         private string FolderPath;
         private DocumentParser parser;
 
+        /// <summary>
+        /// Initializes a new instance of the DocumentHandler class with the specified folder path.
+        /// </summary>
+        /// <param name="folderPath">The path to the folder containing the documents.</param>
         public DocumentHandler(string folderPath)
         {
             FolderPath = folderPath;
             BuildHandler();
         }
+
+        /// <summary>
+        /// Builds the document handler by setting up the chain of document parsers.
+        /// </summary>
         private void BuildHandler()
         {
+            // Create instances of different document parsers
             DocumentParser slideshowParser = new SlideShowParser();
             DocumentParser textDocumentParser = new TextDocumentParser();
             DocumentParser spreadsheetParser = new SpreadsheetParser();
@@ -20,6 +32,8 @@ namespace DocHandler
             DocumentParser PdfParser = new PdfParser();
             DocumentParser DocXParser = new DocXParser();
             DocumentParser DocParser = new DocParser();
+
+            // Set up the chain of responsibility by linking the parsers together
             slideshowParser.SetNext(spreadsheetParser);
             spreadsheetParser.SetNext(textDocumentParser);
             textDocumentParser.SetNext(HtmlParser);
@@ -28,8 +42,14 @@ namespace DocHandler
             PdfParser.SetNext(DocXParser);
             DocXParser.SetNext(DocParser);
 
+            // Set the starting parser
             parser = slideshowParser;
         }
+
+        /// <summary>
+        /// Gets the list of files in the specified folder.
+        /// </summary>
+        /// <returns>An array of file paths.</returns>
         public string[] GetFilesInFolder()
         {
             // Check if the folder exists
@@ -41,6 +61,10 @@ namespace DocHandler
             return Directory.GetFiles(FolderPath);
         }
 
+        /// <summary>
+        /// Retrieves the texts of the documents in the folder using the appropriate parsers.
+        /// </summary>
+        /// <returns>A dictionary containing the file paths and their corresponding texts.</returns>
         public Dictionary<string, string> GetDocTexts()
         {
             Dictionary<string, string> doc_texts = new Dictionary<string, string>();

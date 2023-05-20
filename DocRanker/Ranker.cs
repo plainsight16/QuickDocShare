@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace DocRanker
 {
+    /// <summary>
+    /// Represents a ranker that ranks documents based on a given query.
+    /// </summary>
     public class Ranker
     {
         private Dictionary<string, List<int>> wordIndex;
         private Dictionary<int, int> documentFrequencies;
         private int totalDocuments;
 
+        /// <summary>
+        /// Initializes a new instance of the Ranker class with the given word index.
+        /// </summary>
+        /// <param name="index">The word index.</param>
         public Ranker(Dictionary<string, List<int>> index)
         {
             wordIndex = index;
@@ -20,6 +27,11 @@ namespace DocRanker
             totalDocuments = documentFrequencies.Count;
         }
 
+        /// <summary>
+        /// Ranks the documents based on the given query.
+        /// </summary>
+        /// <param name="query">The query to rank the documents.</param>
+        /// <returns>A list of ranked document IDs.</returns>
         public List<int> RankQuery(string query)
         {
             string[] rawQueryWords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);

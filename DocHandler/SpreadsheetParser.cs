@@ -5,14 +5,27 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace DocHandler
 {
+    /// <summary>
+    /// Represents a document parser for spreadsheet files.
+    /// </summary>
     public class SpreadsheetParser: DocumentParser
     {
+        /// <summary>
+        /// Determines if the document parser can handle the specified file.
+        /// </summary>
+        /// <param name="fileName">The path to the document file.</param>
+        /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string fileName)
         {
             string fileExtension = Path.GetExtension(fileName);
             return fileExtension.Equals(".xlsx");
         }
 
+        /// <summary>
+        /// Parses the spreadsheet document specified by the file path.
+        /// </summary>
+        /// <param name="filename">The path to the spreadsheet document file.</param>
+        /// <returns>The parsed text content of the spreadsheet document.</returns>
         public override string parseDocument(string filename)
         {
             using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(filename, false))
@@ -51,6 +64,12 @@ namespace DocHandler
             return null;
         }
 
+        /// <summary>
+        /// Retrieves the value of a cell in a spreadsheet.
+        /// </summary>
+        /// <param name="cell">The cell to retrieve the value from.</param>
+        /// <param name="workbookPart">The workbook part containing the shared string table.</param>
+        /// <returns>The value of the cell.</returns>
         private string GetCellValue(Cell cell, WorkbookPart workbookPart)
         {
             string value = cell.InnerText;
