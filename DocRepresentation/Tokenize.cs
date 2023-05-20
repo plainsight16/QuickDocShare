@@ -1,4 +1,5 @@
-﻿using Lucene.Net.Tartarus.Snowball.Ext;
+﻿//using Lucene.Net.Tartarus.Snowball.Ext;
+using Lucene.Net.Tartarus.Snowball.Ext;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,23 +37,26 @@ namespace DocRepresentation
         }
     }
 
+
     /// <summary>
     /// Represents a class responsible for tokenizing and normalizing a list of document texts.
     /// </summary>
     public class Tokenize
     {
-        private List<string> doc_texts;
+        private Dictionary<string, string> doc_texts;
         private List<Token> tokens;
-        public List<Token> normalized_tokens;
+        private List<Token> normalized_tokens;
+        private Dictionary<int, string> documentPathAndID;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenize"/> class with the specified list of document texts.
         /// </summary>
         /// <param name="doc_texts">The list of document texts to tokenize and normalize.</param>
-        public Tokenize(List<string> doc_texts)
+        public Tokenize(Dictionary<string, string> doc_texts)
         {
             this.doc_texts = doc_texts;
             tokens = new List<Token>();
+            documentPathAndID = new Dictionary<int, string>();
             normalized_tokens = new List<Token>();
             tokenizer();
             Normalize();
@@ -63,16 +67,23 @@ namespace DocRepresentation
         /// </summary>
         private void tokenizer()
         {
-            foreach (string doc_text in doc_texts)
+            int doc_id = 1;
+            foreach (var doc_text in doc_texts)
             {
 
-                string[] words = doc_text.Split(' ');
+                string[] words = doc_text.Value.Split(' ');
                 foreach (string word in words)
                 {
-                    // index starts from 0 but ID starts from 1
-                    int doc_id = doc_texts.IndexOf(doc_text) + 1;
-                    tokens.Add(new Token(doc_id, word));
+                    string token = word.Trim();
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        tokens.Add(new Token(doc_id, token));
+                    }
                 }
+
+                documentPathAndID.Add(doc_id, doc_text.Key);
+                doc_id = doc_id + 1;
+
             }
         }
 
@@ -93,7 +104,7 @@ namespace DocRepresentation
         /// </summary>
         /// <param name="input">The input string to normalize.</param>
         /// <returns>The normalized string.</returns>
-        public string Normalize(string input)
+        public static string Normalize(string input)
         {
             // Convert all characters to lowercase
             input = input.ToLower(CultureInfo.InvariantCulture);
@@ -112,15 +123,15 @@ namespace DocRepresentation
             input = input.Normalize(NormalizationForm.FormC);
 
             // Stem or lemmatize words (optional)
-            //var stemmer = new EnglishStemmer();
-            //stemmer.SetCurrent(input);
-            //bool stem = stemmer.Stem();
+            var stemmer = new EnglishStemmer();
+            stemmer.SetCurrent(input);
+            bool stem = stemmer.Stem();
 
             //Console.WriteLine(stem);
             //Console.WriteLine(input);
             //Console.WriteLine(stemmer.Current);
 
-            return input;
+            return stemmer.Current;
         }
 
         /// <summary>
@@ -139,6 +150,12 @@ namespace DocRepresentation
         public List<Token> GetNormalized_tokens()
         {
             return normalized_tokens;
+        }
+
+
+        public Dictionary<int, string> GetDocumentPathAndID()
+        {
+            return documentPathAndID;
         }
     }
 }
