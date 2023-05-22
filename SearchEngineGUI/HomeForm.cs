@@ -7,11 +7,13 @@ namespace SearchEngineGUI
     {
         Dictionary<int, string> documentPathAndID;
         Dictionary<string, List<int>> mergedIndex;
+        AutoCompleteStringCollection searchQueries = new AutoCompleteStringCollection();
 
         public HomeForm()
         {
             InitializeComponent();
             InitializeIndexer();
+            InitializeTextFieldSearch();
         }
 
         private void InitializeIndexer()
@@ -21,12 +23,30 @@ namespace SearchEngineGUI
             mergedIndex = docRep.mergedIndex;
         }
 
+        private void InitializeTextFieldSearch()
+        {
+            TextBoxQuery.AutoCompleteMode = AutoCompleteMode.Suggest;
+            TextBoxQuery.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Example queries
+            searchQueries.Add("Previous Query 1");
+            searchQueries.Add("Previous Query 2");
+            searchQueries.Add("Previous Query 3");
+
+            //  GET SAVED SEARCH QUERIES
+
+            TextBoxQuery.AutoCompleteCustomSource = searchQueries;
+
+        }
+
         private void ButtonSearch_Click(object sender, EventArgs e)
         {
             string query = TextBoxQuery.Text;
 
             Ranker ranker = new Ranker(mergedIndex);
             List<int> rankedDocuments = ranker.RankQuery(query);
+
+            searchQueries.Add(query);
 
             new ResultsForm(rankedDocuments, documentPathAndID).Show();
         }
