@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 namespace DocHandler.Tests
 {
     [TestFixture]
-    public class DocParserTests
+    public class TextParserTests
     {
-        private DocParser parser;
+        private TextDocumentParser parser;
+        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
+        string filePath = path + "text_file.txt";
 
         [SetUp]
         public void Setup()
         {
-            parser = new DocParser();
+            parser = new TextDocumentParser();
         }
 
         [Test]
-        public void CanParse_ValidDocFile_ReturnsTrue()
+        public void CanParse_ValidFile_ReturnsTrue()
         {
-            // Arrange
-            string filePath = "C:\\path\\to\\valid.doc";
-
             // Act
             bool result = parser.CanParse(filePath);
 
@@ -32,27 +31,26 @@ namespace DocHandler.Tests
         }
 
         [Test]
-        public void CanParse_InvalidDocFile_ReturnsFalse()
+        public void CanParse_InvalidFile_ReturnsFalse()
         {
             // Arrange
-            string filePath = "C:\\path\\to\\invalid.txt";
+            string invalidFilePath = "C:\\path\\to\\invalid.txt";
 
             // Act
-            bool result = parser.CanParse(filePath);
+            bool result = parser.CanParse(invalidFilePath);
 
             // Assert
             Assert.IsFalse(result);
         }
 
         [Test]
-        public void ParseDocument_ValidDocFile_ReturnsDocumentContent()
+        public void ParseDocument_ValidFile_ReturnsContent()
         {
             // Arrange
-            string filePath = "C:\\path\\to\\document.doc";
             string expectedContent = "This is the content of the document.";
 
             // Act
-            string result = parser.parseDocument(filePath);
+            string result = parser.parseDocument(filePath).Trim();
 
             // Assert
             Assert.That(result, Is.EqualTo(expected: expectedContent));

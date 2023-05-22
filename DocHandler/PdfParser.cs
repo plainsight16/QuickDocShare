@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
@@ -17,8 +16,13 @@ namespace DocHandler
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string filePath)
         {
-            string fileExtension = System.IO.Path.GetExtension(filePath);
-            return fileExtension.Equals(".pdf");
+            if (System.IO.Path.Exists(filePath))
+            {
+                string fileExtension = System.IO.Path.GetExtension(filePath);
+                return fileExtension.Equals(".pdf");
+            }
+            return false;
+                
         }
 
         /// <summary>
