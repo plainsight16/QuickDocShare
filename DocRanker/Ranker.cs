@@ -1,4 +1,5 @@
 ﻿using DocRepresentation;
+using DocumentFormat.OpenXml.Office2010.Word;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,15 @@ namespace DocRanker
     /// </summary>
     public class Ranker
     {
-        private Dictionary<string, List<int>> wordIndex;
-        private Dictionary<int, int> documentFrequencies;
+        private Dictionary<string, List<Token>> wordIndex;
+        private Dictionary<Token, int> documentFrequencies;
         private int totalDocuments;
 
         /// <summary>
         /// Initializes a new instance of the Ranker class with the given word index.
         /// </summary>
         /// <param name="index">The word index.</param>
-        public Ranker(Dictionary<string, List<int>> index)
+        public Ranker(Dictionary<string, List<Token>> index)
         {
             wordIndex = index;
             documentFrequencies = CalculateDocumentFrequencies(index);
@@ -32,7 +33,7 @@ namespace DocRanker
         /// </summary>
         /// <param name="query">The query to rank the documents.</param>
         /// <returns>A list of ranked document IDs.</returns>
-        public List<int> RankQuery(string query)
+        public List<Token> RankQuery(string query)
         {
             string[] rawQueryWords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string[] queryWords = new string[] {};
@@ -49,29 +50,30 @@ namespace DocRanker
 
             Dictionary<string, int> queryTermFrequencies = CalculateTermFrequencies(queryWords);
 
-            Dictionary<int, double> documentScores = new Dictionary<int, double>();
+            Dictionary<Token, double> documentScores = new Dictionary<Token, double>();
 
             foreach (string word in queryTermFrequencies.Keys)
             {
                 if (wordIndex.ContainsKey(word))
                 {
-                    List<int> documents = wordIndex[word];
+                    List<Token> documents = wordIndex[word];
 
-                    foreach (int document in documents)
+                    foreach (Token document in documents)
                     {
                         int termFrequency = queryTermFrequencies[word];
-                        int documentFrequency = documentFrequencies[document];
+                        Token tk = documentFrequencies.Keys.FirstOrDefault(tk => tk.doc_id == document.doc_id);
+                        int documentFrequency = documentFrequencies[tk];
                         double tfIdfScore = (termFrequency / (double)queryWords.Length) * Math.Log(totalDocuments / (double)documentFrequency);
 
-                        if (documentScores.ContainsKey(document))
-                            documentScores[document] += tfIdfScore;
+                        if (documentScores.ContainsKey(tk))
+                            documentScores[tk] += tfIdfScore;
                         else
-                            documentScores[document] = tfIdfScore;
+                            documentScores[tk] = tfIdfScore;
                     }
                 }
             }
 
-            List<int> rankedDocuments = documentScores.OrderByDescending(d => d.Value).Select(d => d.Key).ToList();
+            List<Token> rankedDocuments = documentScores.OrderByDescending(d => d.Value).Select(d => d.Key).ToList();
 
             //foreach (var item in documentScores)
             //{
@@ -96,18 +98,25 @@ namespace DocRanker
             return termFrequencies;
         }
 
-        private Dictionary<int, int> CalculateDocumentFrequencies(Dictionary<string, List<int>> wordIndex)
+        private Dictionary<Token, int> CalculateDocumentFrequencies(Dictionary<string, List<Token>> wordIndex)
         {
-            Dictionary<int, int> documentFrequencies = new Dictionary<int, int>();
+            Dictionary<Token, int> documentFrequencies = new Dictionary<Token, int>();
 
-            foreach (List<int> documentIds in wordIndex.Values)
+            foreach (List<Token> tokens in wordIndex.Values)
             {
-                foreach (int documentId in documentIds)
+                foreach (Token token in tokens)
                 {
-                    if (documentFrequencies.ContainsKey(documentId))
-                        documentFrequencies[documentId]++;
+                    int documentId = token.doc_id;
+                    if (documentFrequencies.Keys.Any(tk => tk.doc_id == documentId))
+                    {
+                        Token tk = documentFrequencies.Keys.FirstOrDefault(tk => tk.doc_id == documentId);
+                        documentFrequencies[tk]++;
+                    }
                     else
-                        documentFrequencies[documentId] = 1;
+                    {
+                        documentFrequencies[token] = 1;
+
+                    }
                 }
             }
 

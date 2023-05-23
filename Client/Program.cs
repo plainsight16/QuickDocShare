@@ -9,17 +9,15 @@ namespace Client
         static void Main(string[] args)
         {
             DocumentRepresentation docRep = LocalStorage.LoadObjectFromFile();
-            Dictionary<int, string> documentPathAndID = docRep.documentPathAndID;
-            Dictionary<string, List<int>> mergedIndex = docRep.mergedIndex;
+            Dictionary<string, List<Token>> mergedIndex = docRep.mergedIndex;
 
             Ranker ranker = new Ranker(mergedIndex);
             string query = "Project Execution";
-            List<int> rankedDocuments = ranker.RankQuery(query);
+            List<Token> rankedDocuments = ranker.RankQuery(query);
 
             foreach (var item in rankedDocuments)
             {
-                string path = documentPathAndID[item];
-                Console.WriteLine("Document Id: {0}, Path: {1}", item, path);
+                Console.WriteLine("Document Id: {0}, Path: {1}", item.doc_id, item.filePath);
             }
         }
     }

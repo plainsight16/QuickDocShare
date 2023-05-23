@@ -18,12 +18,7 @@ namespace DocRepresentation
         /// <summary>
         /// Gets or sets the merged inverted index of the documents.
         /// </summary>
-        public Dictionary<string, List<int>> mergedIndex { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mapping between document IDs and their corresponding file paths.
-        /// </summary>
-        public Dictionary<int, string> documentPathAndID { get; set; }
+        public Dictionary<string, List<Token>> mergedIndex { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the DocumentRepresentation class with the provided document texts.
@@ -39,9 +34,6 @@ namespace DocRepresentation
             index = new InvertIndex(tokens.GetNormalized_tokens());
             // Get the merged index from the InvertIndex object
             mergedIndex = index.GetMergedIndex();
-
-            // Get the document paths and IDs from the Tokenize object
-            documentPathAndID = tokens.GetDocumentPathAndID();
 
             // Save the DocumentRepresentation object to a file using JSON serialization
             LocalStorage.SaveObjectToFile(this);

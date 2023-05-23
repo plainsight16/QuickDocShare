@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace DocRepresentation
     {
 
         // Stores the inverted index as a dictionary where the key is a term and the value is a list of document IDs that contain that term.
-        private Dictionary<string, List<int>> merged_index;
+        private Dictionary<string, List<Token>> merged_index;
 
 
 
@@ -27,7 +28,7 @@ namespace DocRepresentation
             // Initializes the merged_index dictionary and constructs the inverted index.
 
             // Initialize the merged_index dictionary.
-            merged_index = new Dictionary<string, List<int>>();
+            merged_index = new Dictionary<string, List<Token>>();
 
             // Sort the tokens to ensure a consistent order for merging.
             List<Token> sorted_index = sortedIndex(tokens);
@@ -60,18 +61,19 @@ namespace DocRepresentation
                 {
                     // If the token already exists in the merged_index,
                     // add the document ID to the list if it's not already present.
-                    if (!merged_index[token.token].Contains(token.doc_id))
+                    if (!merged_index[token.token].Any(tk => tk.doc_id == token.doc_id)
+                        )
                     {
-                        merged_index[token.token].Add(token.doc_id);
+                        merged_index[token.token].Add(token);
                     }
                 }
                 else
                 {
                     // If the token does not exist in the merged_index,
                     // create a new list with the document ID and add it to the dictionary.
-                    List<int> pairingList = new List<int>
+                    List<Token> pairingList = new List<Token>
                     {
-                        token.doc_id
+                       token
                     };
                     merged_index.Add(token.token, pairingList);
                 }
@@ -82,7 +84,7 @@ namespace DocRepresentation
         /// Gets the constructed merged_index, which represents the inverted index.
         /// </summary>
         /// <returns>The inverted index as a dictionary.</returns>
-        public Dictionary<string, List<int>> GetMergedIndex()
+        public Dictionary<string, List<Token>> GetMergedIndex()
         {
             // Returns the constructed merged_index, which represents the inverted index.
             return merged_index;

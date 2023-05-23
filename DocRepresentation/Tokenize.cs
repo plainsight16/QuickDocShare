@@ -1,4 +1,5 @@
 ﻿//using Lucene.Net.Tartarus.Snowball.Ext;
+using Lucene.Net.Codecs;
 using Lucene.Net.Tartarus.Snowball.Ext;
 using System;
 using System.Collections.Generic;
@@ -18,22 +19,28 @@ namespace DocRepresentation
         /// <summary>
         /// The ID of the document that this token belongs to.
         /// </summary>
-        public int doc_id;
+        public int doc_id { get; set; }
 
         /// <summary>
         /// The token value.
         /// </summary>
-        public string token;
+        public string token { get; set; }
+
+        /// <summary>
+        /// file path.
+        /// </summary>
+        public string filePath { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Token"/> class with the specified document ID and token.
         /// </summary>
         /// <param name="doc_id">The document ID associated with the token.</param>
         /// <param name="token">The token string.</param>
-        public Token(int doc_id, string token)
+        public Token(int doc_id, string token, string filePath)
         {
             this.doc_id = doc_id;
             this.token = token;
+            this.filePath = filePath;
         }
     }
 
@@ -46,7 +53,6 @@ namespace DocRepresentation
         private Dictionary<string, string> doc_texts;
         private List<Token> tokens;
         private List<Token> normalized_tokens;
-        private Dictionary<int, string> documentPathAndID;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tokenize"/> class with the specified list of document texts.
@@ -56,7 +62,6 @@ namespace DocRepresentation
         {
             this.doc_texts = doc_texts;
             tokens = new List<Token>();
-            documentPathAndID = new Dictionary<int, string>();
             normalized_tokens = new List<Token>();
             tokenizer();
             Normalize();
@@ -70,18 +75,16 @@ namespace DocRepresentation
             int doc_id = 1;
             foreach (var doc_text in doc_texts)
             {
-
+                string filePath = doc_text.Key;
                 string[] words = doc_text.Value.Split(' ');
                 foreach (string word in words)
                 {
                     string token = word.Trim();
                     if (!string.IsNullOrWhiteSpace(token))
                     {
-                        tokens.Add(new Token(doc_id, token));
+                        tokens.Add(new Token(doc_id, token, filePath));
                     }
                 }
-
-                documentPathAndID.Add(doc_id, doc_text.Key);
                 doc_id = doc_id + 1;
 
             }
@@ -94,7 +97,7 @@ namespace DocRepresentation
         {
             foreach (Token token in tokens)
             {
-                normalized_tokens.Add(new Token(token.doc_id, Normalize(token.token)));
+                normalized_tokens.Add(new Token(token.doc_id, Normalize(token.token), token.filePath));
             }
         }
 
@@ -150,12 +153,6 @@ namespace DocRepresentation
         public List<Token> GetNormalized_tokens()
         {
             return normalized_tokens;
-        }
-
-
-        public Dictionary<int, string> GetDocumentPathAndID()
-        {
-            return documentPathAndID;
         }
     }
 }

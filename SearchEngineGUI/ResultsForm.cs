@@ -8,27 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client;
 
 namespace SearchEngineGUI
 {
     public partial class ResultsForm : Form
     {
-        public ResultsForm(List<int> rankedDocuments, Dictionary<int, string> documentPathAndID)
+        public ResultsForm(List<Token> rankedDocuments)
         {
             InitializeComponent();
-            DisplayResults(rankedDocuments, documentPathAndID);
+            DisplayResults(rankedDocuments);
         }
 
-        private void DisplayResults(List<int> rankedDocuments, Dictionary<int, string> documentPathAndID)
+        private void DisplayResults(List<Token> rankedDocuments)
         {
             int currentHeight = 0;
-            foreach (var item in rankedDocuments)
+            foreach (Token item in rankedDocuments)
             {
-                string path = documentPathAndID[item];
-                string message = string.Format("Document Id: {0}, Path: {1}", item, path);
-               
+              
                 Button btn = new Button();
-                btn.Text = Path.GetFileName(path);
+                btn.Text = Path.GetFileName(item.);
                 btn.Height = 50;
                 btn.Width = 100;
                 btn.Location =  new Point(0, currentHeight);
