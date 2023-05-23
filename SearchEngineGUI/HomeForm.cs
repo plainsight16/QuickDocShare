@@ -6,7 +6,7 @@ namespace SearchEngineGUI
     public partial class HomeForm : Form
     {
         Dictionary<int, string> documentPathAndID;
-        Dictionary<string, List<int>> mergedIndex;
+        Dictionary<string, List<Token>> mergedIndex;
         AutoCompleteStringCollection searchQueries = new AutoCompleteStringCollection();
 
         public HomeForm()
@@ -19,7 +19,6 @@ namespace SearchEngineGUI
         private void InitializeIndexer()
         {
             DocumentRepresentation docRep = LocalStorage.LoadObjectFromFile();
-            documentPathAndID = docRep.documentPathAndID;
             mergedIndex = docRep.mergedIndex;
         }
 
@@ -44,11 +43,11 @@ namespace SearchEngineGUI
             string query = TextBoxQuery.Text;
 
             Ranker ranker = new Ranker(mergedIndex);
-            List<int> rankedDocuments = ranker.RankQuery(query);
+            List<Token> rankedDocuments = ranker.RankQuery(query);
 
             searchQueries.Add(query);
 
-            new ResultsForm(rankedDocuments, documentPathAndID).Show();
+            new ResultsForm(rankedDocuments).Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)

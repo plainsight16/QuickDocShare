@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using DocRepresentation;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Client;
 
 namespace SearchEngineGUI
 {
@@ -25,15 +16,16 @@ namespace SearchEngineGUI
             int currentHeight = 0;
             foreach (Token item in rankedDocuments)
             {
+                string filePath = item.filePath;
               
                 Button btn = new Button();
-                btn.Text = Path.GetFileName(item.);
+                btn.Text = Path.GetFileName(filePath);
                 btn.Height = 50;
                 btn.Width = 100;
                 btn.Location =  new Point(0, currentHeight);
                 btn.Click += (object sender, EventArgs e) =>
                 {
-                    Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
                 };
                 Controls.Add(btn);
                 currentHeight = currentHeight + 50;
