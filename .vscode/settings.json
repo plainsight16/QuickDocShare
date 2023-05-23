@@ -1,0 +1,5 @@
+{
+    "dotnet-test-explorer.testProjectPath": "./DocHandler/Tests",
+    "dotnet-test-explorer.useLegacyDotnetCli": false,
+    "dotnet-test-explorer.testArguments": "--configuration Debug"
+}

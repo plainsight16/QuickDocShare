@@ -1,23 +1,19 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+
 
 namespace DocHandler.Tests
 {
     [TestFixture]
-    public class TextParserTests
+    public class XmlParserTests
     {
-        private TextParser parser;
+        private XmlParser parser;
         static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
-        string filePath = path + "text_file.txt";
+        string filePath = path + "xml_test_file.xml";
 
         [SetUp]
         public void Setup()
         {
-            parser = new TextParser();
+            parser = new XmlParser();
         }
 
         [Test]
@@ -34,7 +30,7 @@ namespace DocHandler.Tests
         public void CanParse_InvalidFile_ReturnsFalse()
         {
             // Arrange
-            string invalidFilePath = "C:\\path\\to\\invalid.txt";
+            string invalidFilePath = "C:\\path\\to\\invalid.xml";
 
             // Act
             bool result = parser.CanParse(invalidFilePath);

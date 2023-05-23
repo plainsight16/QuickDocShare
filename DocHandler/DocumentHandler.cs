@@ -25,7 +25,7 @@ namespace DocHandler
         {
             // Create instances of different document parsers
             DocumentParser slideshowParser = new SlideShowParser();
-            DocumentParser textDocumentParser = new TextDocumentParser();
+            DocumentParser textDocumentParser = new TextParser();
             DocumentParser spreadsheetParser = new SpreadsheetParser();
             DocumentParser HtmlParser = new HtmlParser();
             DocumentParser XmlParser = new XmlParser();
