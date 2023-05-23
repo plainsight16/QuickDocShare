@@ -3,7 +3,7 @@ namespace DocHandler
     /// <summary>
     /// Represents a document parser for text files.
     /// </summary>
-    public class TextDocumentParser : DocumentParser
+    public class TextParser : DocumentParser
     {
         /// <summary>
         /// Determines if the document parser can handle the specified file.
