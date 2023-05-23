@@ -36,7 +36,7 @@ namespace DocRepresentation
             mergedIndex = index.GetMergedIndex();
 
             // Save the DocumentRepresentation object to a file using JSON serialization
-            LocalStorage.SaveObjectToFile(this);
+            DocRepLocalStorage.SaveObjectToFile(this);
 
             //foreach (var kvp in index.GetMergedIndex())
             //{

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocHandler\DocHandler.csproj" />
+    <ProjectReference Include="..\Query\Query.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            DocumentRepresentation docRep = LocalStorage.LoadObjectFromFile();
+            DocumentRepresentation docRep = DocRepLocalStorage.LoadObjectFromFile();
             Dictionary<string, List<Token>> mergedIndex = docRep.mergedIndex;
 
             Ranker ranker = new Ranker(mergedIndex);

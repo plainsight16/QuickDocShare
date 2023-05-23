@@ -70,8 +70,9 @@
             TextBoxQuery.TabIndex = 3;
             TextBoxQuery.Text = "Enter Search Query";
             TextBoxQuery.TextAlign = HorizontalAlignment.Center;
+            TextBoxQuery.TextChanged += TextBoxQuery_TextChanged;
             // 
-            // Form1
+            // HomeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -80,7 +81,7 @@
             Controls.Add(ButtonSearch);
             Controls.Add(button1);
             Controls.Add(label1);
-            Name = "Form1";
+            Name = "HomeForm";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);

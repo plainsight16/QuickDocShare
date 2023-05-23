@@ -1,4 +1,5 @@
 ﻿using DocHandler;
+using Query;
 using System.Reflection.Metadata;
 
 namespace DocRepresentation
