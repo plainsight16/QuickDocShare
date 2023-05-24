@@ -12,7 +12,7 @@ namespace DocRepresentation
     /// </summary>
     public class DocRepLocalStorage
     {
-        private static string path = @"..\..\..\..\Files\db.json";
+        private static string path = @"..\..\..\..\Files\Databases\db.json";
 
         /// <summary>
         /// Serializes an object to a JSON file.

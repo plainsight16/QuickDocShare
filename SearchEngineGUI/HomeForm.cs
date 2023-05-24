@@ -2,6 +2,7 @@ using DocHandler;
 using DocRanker;
 using DocRepresentation;
 using Query;
+using System.Diagnostics;
 
 namespace SearchEngineGUI
 {
@@ -44,6 +45,10 @@ namespace SearchEngineGUI
 
         private void ButtonSearch_Click(object sender, EventArgs e)
         {
+            // Create a Stopwatch instance to measure time taken
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             string query = TextBoxQuery.Text;
 
             Ranker ranker = new Ranker(mergedIndex);
@@ -55,8 +60,9 @@ namespace SearchEngineGUI
                 SearchQueryLocalStorage.AddQuery(query);
             }
 
+            stopwatch.Start();
 
-            new ResultsForm(rankedDocuments, query).Show();
+            new ResultsForm(rankedDocuments, query, stopwatch.Elapsed.TotalSeconds).Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -12,7 +12,7 @@ namespace DocHandler
         {
 
                 // Specify the destination path where the file should be copied
-                string destinationPath = @"..\..\..\..\Files";
+                string destinationPath = @"..\..\..\..\Files\Documents";
 
                 try
                 {

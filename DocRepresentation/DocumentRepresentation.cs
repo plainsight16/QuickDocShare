@@ -58,7 +58,7 @@ namespace DocRepresentation
         {
             try
             {
-                Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
+                Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files\Documents").GetDocTexts();
                 DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
                 return true;
             }
