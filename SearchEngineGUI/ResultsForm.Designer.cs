@@ -28,12 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "ResultsForm";
+            ResultLabel = new Label();
+            ResultsListView = new ListView();
+            SuspendLayout();
+            // 
+            // ResultLabel
+            // 
+            ResultLabel.AutoSize = true;
+            ResultLabel.Font = new Font("Segoe UI Black", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            ResultLabel.Location = new Point(21, 22);
+            ResultLabel.Name = "ResultLabel";
+            ResultLabel.Size = new Size(87, 30);
+            ResultLabel.TabIndex = 1;
+            ResultLabel.Text = "Results";
+            ResultLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // ResultsListView
+            // 
+            ResultsListView.Alignment = ListViewAlignment.Left;
+            ResultsListView.BorderStyle = BorderStyle.None;
+            ResultsListView.LabelWrap = false;
+            ResultsListView.Location = new Point(27, 78);
+            ResultsListView.Name = "ResultsListView";
+            ResultsListView.Size = new Size(742, 348);
+            ResultsListView.TabIndex = 2;
+            ResultsListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // ResultsForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(800, 450);
+            Controls.Add(ResultsListView);
+            Controls.Add(ResultLabel);
+            Name = "ResultsForm";
+            Text = "Results";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label ResultLabel;
+        private ListView ResultsListView;
     }
 }

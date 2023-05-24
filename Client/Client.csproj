@@ -12,6 +12,7 @@
     <ProjectReference Include="..\DocHandler\DocHandler.csproj" />
     <ProjectReference Include="..\DocRanker\DocRanker.csproj" />
     <ProjectReference Include="..\DocRepresentation\DocRepresentation.csproj" />
+    <ProjectReference Include="..\Query\Query.csproj" />
   </ItemGroup>
 
 </Project>

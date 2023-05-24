@@ -10,7 +10,7 @@ namespace DocRepresentation
     /// <summary>
     /// Provides functionality for serializing and deserializing objects to/from a JSON file.
     /// </summary>
-    public class LocalStorage
+    public class DocRepLocalStorage
     {
         private static string path = @"..\..\..\..\Files\db.json";
 

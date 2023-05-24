@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DocHandler;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace DocRepresentation
             mergedIndex = index.GetMergedIndex();
 
             // Save the DocumentRepresentation object to a file using JSON serialization
-            LocalStorage.SaveObjectToFile(this);
+            DocRepLocalStorage.SaveObjectToFile(this);
 
             //foreach (var kvp in index.GetMergedIndex())
             //{
@@ -51,6 +52,22 @@ namespace DocRepresentation
         public DocumentRepresentation()
         {
             // Empty parameterless constructor
+        }
+
+        public static bool IndexFiles()
+        {
+            try
+            {
+                Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
+                DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            
         }
     }
 }

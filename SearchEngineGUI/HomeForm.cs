@@ -1,11 +1,12 @@
+using DocHandler;
 using DocRanker;
 using DocRepresentation;
+using Query;
 
 namespace SearchEngineGUI
 {
     public partial class HomeForm : Form
     {
-        Dictionary<int, string> documentPathAndID;
         Dictionary<string, List<Token>> mergedIndex;
         AutoCompleteStringCollection searchQueries = new AutoCompleteStringCollection();
 
@@ -18,7 +19,7 @@ namespace SearchEngineGUI
 
         private void InitializeIndexer()
         {
-            DocumentRepresentation docRep = LocalStorage.LoadObjectFromFile();
+            DocumentRepresentation docRep = DocRepLocalStorage.LoadObjectFromFile();
             mergedIndex = docRep.mergedIndex;
         }
 
@@ -27,12 +28,15 @@ namespace SearchEngineGUI
             TextBoxQuery.AutoCompleteMode = AutoCompleteMode.Suggest;
             TextBoxQuery.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
-            // Example queries
-            searchQueries.Add("Previous Query 1");
-            searchQueries.Add("Previous Query 2");
-            searchQueries.Add("Previous Query 3");
-
-            //  GET SAVED SEARCH QUERIES
+            SearchQuery searchQuery = SearchQueryLocalStorage.LoadObjectFromFile();
+            if (searchQuery != null)
+            {
+                List<string> previousQueries = searchQuery.previousSearchQueries;
+                if (previousQueries != null)
+                {
+                    searchQueries.AddRange(previousQueries.ToArray());
+                }
+            }
 
             TextBoxQuery.AutoCompleteCustomSource = searchQueries;
 
@@ -45,14 +49,74 @@ namespace SearchEngineGUI
             Ranker ranker = new Ranker(mergedIndex);
             List<Token> rankedDocuments = ranker.RankQuery(query);
 
-            searchQueries.Add(query);
+            if (!searchQueries.Contains(query))
+            {
+                searchQueries.Add(query);
+                SearchQueryLocalStorage.AddQuery(query);
+            }
 
-            new ResultsForm(rankedDocuments).Show();
+
+            new ResultsForm(rankedDocuments, query).Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void TextBoxQuery_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonUpload_Click(object sender, EventArgs e)
+        {
+            // Create an instance of OpenFileDialog
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // Set the initial directory and filter for file selection
+            openFileDialog.InitialDirectory = "C:\\";
+            openFileDialog.Filter = "Supported Files (*.pdf;*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.txt;*.html;*.xml)|*.pdf;*.doc;*.docx;*.ppt;*.pptx;*.xls;*.xlsx;*.txt;*.html;*.xml";
+
+            // Show the file dialog and check if the user clicked the OK button
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file path
+                string selectedFilePath = openFileDialog.FileName;
+
+                bool uploaded = UploadDocument.Upload(selectedFilePath);
+                if (uploaded)
+                {
+                    MessageBox.Show("Started Indexing All Available Documents. Results will not contain newly uploaded document", "File uploaded successfully!");
+
+                    // start indexing
+                    bool indexed = DocumentRepresentation.IndexFiles();
+                    if (indexed)
+                    {
+                        // update mergedIndex
+                        InitializeIndexer();
+
+                        MessageBox.Show("Finished Indexing All Documents!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error Indexing Documents!", "Error Occured!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error uploading file!", "Error Occured!");
+                }
+            }
+        }
+
+        private void TextBoxQuery_Paint(object sender, PaintEventArgs e)
+        {
+            // Calculate the vertical offset to center the text
+            int verticalOffset = (TextBoxQuery.Height - (int)TextBoxQuery.Font.GetHeight()) / 2;
+
+            // Draw the text at the vertically centered position
+            e.Graphics.DrawString(TextBoxQuery.Text, TextBoxQuery.Font, SystemBrushes.ControlText, new PointF(0, verticalOffset));
         }
     }
 }
