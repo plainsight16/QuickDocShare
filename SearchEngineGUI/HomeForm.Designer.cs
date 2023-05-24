@@ -60,7 +60,7 @@
             ButtonSearch.FlatAppearance.BorderSize = 0;
             ButtonSearch.FlatStyle = FlatStyle.Flat;
             ButtonSearch.ForeColor = Color.White;
-            ButtonSearch.Location = new Point(284, 210);
+            ButtonSearch.Location = new Point(284, 201);
             ButtonSearch.Name = "ButtonSearch";
             ButtonSearch.Size = new Size(242, 41);
             ButtonSearch.TabIndex = 2;
@@ -71,16 +71,14 @@
             // TextBoxQuery
             // 
             TextBoxQuery.BorderStyle = BorderStyle.FixedSingle;
+            TextBoxQuery.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             TextBoxQuery.Location = new Point(284, 149);
             TextBoxQuery.Name = "TextBoxQuery";
+            TextBoxQuery.Size = new Size(242, 36);
             TextBoxQuery.TabIndex = 3;
             TextBoxQuery.Text = "Enter Search Query";
             TextBoxQuery.TextAlign = HorizontalAlignment.Center;
             TextBoxQuery.TextChanged += TextBoxQuery_TextChanged;
-            //my ui changes
-            TextBoxQuery.AutoSize = false;
-            TextBoxQuery.Multiline = false;
-            TextBoxQuery.Size = new Size(242, 45);
             // 
             // HomeForm
             // 
@@ -94,7 +92,7 @@
             Controls.Add(label1);
             MinimumSize = new Size(0, 150);
             Name = "HomeForm";
-            Text = "Form1";
+            Text = "Search Engine";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();

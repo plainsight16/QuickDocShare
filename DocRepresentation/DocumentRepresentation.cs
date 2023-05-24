@@ -56,9 +56,18 @@ namespace DocRepresentation
 
         public static bool IndexFiles()
         {
-            Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
-            DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
-            return true;
+            try
+            {
+                Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
+                DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            
         }
     }
 }

@@ -49,10 +49,14 @@ namespace SearchEngineGUI
             Ranker ranker = new Ranker(mergedIndex);
             List<Token> rankedDocuments = ranker.RankQuery(query);
 
-            searchQueries.Add(query);
-            SearchQueryLocalStorage.AddQuery(query);
+            if (!searchQueries.Contains(query))
+            {
+                searchQueries.Add(query);
+                SearchQueryLocalStorage.AddQuery(query);
+            }
 
-            new ResultsForm(rankedDocuments).Show();
+
+            new ResultsForm(rankedDocuments, query).Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -94,12 +98,25 @@ namespace SearchEngineGUI
 
                         MessageBox.Show("Finished Indexing All Documents!");
                     }
+                    else
+                    {
+                        MessageBox.Show("Error Indexing Documents!", "Error Occured!");
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Error uploading file!", "Error Occured!");
                 }
             }
+        }
+
+        private void TextBoxQuery_Paint(object sender, PaintEventArgs e)
+        {
+            // Calculate the vertical offset to center the text
+            int verticalOffset = (TextBoxQuery.Height - (int)TextBoxQuery.Font.GetHeight()) / 2;
+
+            // Draw the text at the vertically centered position
+            e.Graphics.DrawString(TextBoxQuery.Text, TextBoxQuery.Font, SystemBrushes.ControlText, new PointF(0, verticalOffset));
         }
     }
 }
