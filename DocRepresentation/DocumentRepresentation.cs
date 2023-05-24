@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DocHandler;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,13 @@ namespace DocRepresentation
         public DocumentRepresentation()
         {
             // Empty parameterless constructor
+        }
+
+        public static bool IndexFiles()
+        {
+            Dictionary<string, string> doc_texts = new DocumentHandler(@"..\..\..\..\Files").GetDocTexts();
+            DocumentRepresentation docRep = new DocumentRepresentation(doc_texts);
+            return true;
         }
     }
 }

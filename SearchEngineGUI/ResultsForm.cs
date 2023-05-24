@@ -17,12 +17,12 @@ namespace SearchEngineGUI
             foreach (Token item in rankedDocuments)
             {
                 string filePath = item.filePath;
-              
+
                 Button btn = new Button();
                 btn.Text = Path.GetFileName(filePath);
                 btn.Height = 50;
                 btn.Width = 100;
-                btn.Location =  new Point(0, currentHeight);
+                btn.Location = new Point(0, currentHeight);
                 btn.Click += (object sender, EventArgs e) =>
                 {
                     Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });

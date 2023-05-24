@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            button1 = new Button();
+            ButtonUpload = new Button();
             ButtonSearch = new Button();
             TextBoxQuery = new TextBox();
             SuspendLayout();
@@ -37,50 +37,62 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(363, 39);
+            label1.Font = new Font("Segoe UI Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(291, 30);
             label1.Name = "label1";
-            label1.Size = new Size(95, 15);
+            label1.Size = new Size(235, 37);
             label1.TabIndex = 0;
             label1.Text = "SEARCH ENGINE";
             // 
-            // button1
+            // ButtonUpload
             // 
-            button1.Location = new Point(291, 365);
-            button1.Name = "button1";
-            button1.Size = new Size(242, 41);
-            button1.TabIndex = 1;
-            button1.Text = "Upload Document";
-            button1.UseVisualStyleBackColor = true;
+            ButtonUpload.Location = new Point(284, 342);
+            ButtonUpload.Name = "ButtonUpload";
+            ButtonUpload.Size = new Size(242, 41);
+            ButtonUpload.TabIndex = 1;
+            ButtonUpload.Text = "Upload Document";
+            ButtonUpload.UseVisualStyleBackColor = true;
+            ButtonUpload.Click += ButtonUpload_Click;
             // 
             // ButtonSearch
             // 
-            ButtonSearch.Location = new Point(291, 173);
+            ButtonSearch.BackColor = Color.Black;
+            ButtonSearch.FlatAppearance.BorderSize = 0;
+            ButtonSearch.FlatStyle = FlatStyle.Flat;
+            ButtonSearch.ForeColor = Color.White;
+            ButtonSearch.Location = new Point(284, 210);
             ButtonSearch.Name = "ButtonSearch";
             ButtonSearch.Size = new Size(242, 41);
             ButtonSearch.TabIndex = 2;
             ButtonSearch.Text = "Search";
-            ButtonSearch.UseVisualStyleBackColor = true;
+            ButtonSearch.UseVisualStyleBackColor = false;
             ButtonSearch.Click += ButtonSearch_Click;
             // 
             // TextBoxQuery
             // 
-            TextBoxQuery.Location = new Point(291, 122);
+            TextBoxQuery.BorderStyle = BorderStyle.FixedSingle;
+            TextBoxQuery.Location = new Point(284, 149);
             TextBoxQuery.Name = "TextBoxQuery";
-            TextBoxQuery.Size = new Size(242, 23);
             TextBoxQuery.TabIndex = 3;
             TextBoxQuery.Text = "Enter Search Query";
             TextBoxQuery.TextAlign = HorizontalAlignment.Center;
             TextBoxQuery.TextChanged += TextBoxQuery_TextChanged;
+            //my ui changes
+            TextBoxQuery.AutoSize = false;
+            TextBoxQuery.Multiline = false;
+            TextBoxQuery.Size = new Size(242, 45);
             // 
             // HomeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
             Controls.Add(TextBoxQuery);
             Controls.Add(ButtonSearch);
-            Controls.Add(button1);
+            Controls.Add(ButtonUpload);
             Controls.Add(label1);
+            MinimumSize = new Size(0, 150);
             Name = "HomeForm";
             Text = "Form1";
             Load += Form1_Load;
@@ -91,7 +103,7 @@
         #endregion
 
         private Label label1;
-        private Button button1;
+        private Button ButtonUpload;
         private Button ButtonSearch;
         private TextBox TextBoxQuery;
     }
