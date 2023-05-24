@@ -63,7 +63,7 @@
             Controls.Add(ResultsListView);
             Controls.Add(ResultLabel);
             Name = "ResultsForm";
-            Text = "ResultsForm";
+            Text = "Results";
             ResumeLayout(false);
             PerformLayout();
         }
