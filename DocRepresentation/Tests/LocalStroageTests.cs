@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DocRepresentation.Tests
@@ -12,13 +13,10 @@ namespace DocRepresentation.Tests
         [SetUp]
         public void SetUp()
         {
+            Dictionary<string, string> testDict = new Dictionary<string, string>();
+            testDict.Add(testFilePath, "test file content");
             // Create a test object
-            testObject = new DocumentRepresentation()
-            {
-                Id = 1,
-                Title = "Test Document",
-                Content = "This is a test document."
-            };
+            testObject = new DocumentRepresentation(testDict);         
         }
 
         [Test]
@@ -31,9 +29,9 @@ namespace DocRepresentation.Tests
             Assert.IsTrue(File.Exists(testFilePath));
             string json = File.ReadAllText(testFilePath);
             DocumentRepresentation deserializedObject = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentRepresentation>(json);
-            Assert.AreEqual(testObject.Id, deserializedObject.Id);
-            Assert.AreEqual(testObject.Title, deserializedObject.Title);
-            Assert.AreEqual(testObject.Content, deserializedObject.Content);
+            Assert.AreEqual(testObject.mergedIndex.Count, deserializedObject.mergedIndex.Count);
+            Assert.IsTrue(deserializedObject.mergedIndex.ContainsKey(testFilePath));
+            Assert.AreEqual(testObject.FilePaths[testFilePath], deserializedObject.FilePaths[testFilePath]);
         }
 
         [Test]
@@ -48,9 +46,9 @@ namespace DocRepresentation.Tests
             DocumentRepresentation loadedObject = LocalStorage.LoadObjectFromFile();
 
             // Assert
-            Assert.AreEqual(testObject.Id, loadedObject.Id);
-            Assert.AreEqual(testObject.Title, loadedObject.Title);
-            Assert.AreEqual(testObject.Content, loadedObject.Content);
+            Assert.AreEqual(testObject.FilePaths.Count, loadedObject.FilePaths.Count);
+            Assert.IsTrue(loadedObject.FilePaths.ContainsKey(testFilePath));
+            Assert.AreEqual(testObject.FilePaths[testFilePath], loadedObject.FilePaths[testFilePath]);
         }
 
         [TearDown]
@@ -64,3 +62,4 @@ namespace DocRepresentation.Tests
         }
     }
 }
+
