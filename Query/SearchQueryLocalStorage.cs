@@ -9,13 +9,18 @@ namespace Query
 {
     public class SearchQueryLocalStorage
     {
-        private static string path = @"..\..\..\..\Files\Databases\queries.json";
+        private string path;
 
+        public SearchQueryLocalStorage(string path)
+        {
+            this.path = path;
+        }
+        
         /// <summary>
         /// Serializes an object to a JSON file.
         /// </summary>
         /// <param name="myObject">The object to be serialized.</param>
-        public static void SaveObjectToFile(SearchQuery myObject)
+        public void SaveObjectToFile(SearchQuery myObject)
         {
             // Serialize the object to JSON
             string json = JsonConvert.SerializeObject(myObject);
@@ -28,7 +33,7 @@ namespace Query
         /// Deserializes an object from a JSON file.
         /// </summary>
         /// <returns>The deserialized object.</returns>
-        public static SearchQuery LoadObjectFromFile()
+        public SearchQuery LoadObjectFromFile()
         {
             // Read the JSON from the file
             string json = File.ReadAllText(path);
@@ -37,7 +42,7 @@ namespace Query
             return JsonConvert.DeserializeObject<SearchQuery>(json);
         }
 
-        public static void AddQuery(string query)
+        public void AddQuery(string query)
         {
             SearchQuery searchQuery = LoadObjectFromFile();
             if(searchQuery!=null && searchQuery.previousSearchQueries != null)

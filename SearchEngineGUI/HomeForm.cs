@@ -29,7 +29,7 @@ namespace SearchEngineGUI
             TextBoxQuery.AutoCompleteMode = AutoCompleteMode.Suggest;
             TextBoxQuery.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
-            SearchQuery searchQuery = SearchQueryLocalStorage.LoadObjectFromFile();
+            SearchQuery searchQuery = new SearchQueryLocalStorage(@"..\..\..\..\Files\Databases\queries.json").LoadObjectFromFile();
             if (searchQuery != null)
             {
                 List<string> previousQueries = searchQuery.previousSearchQueries;
