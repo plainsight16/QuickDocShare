@@ -35,10 +35,10 @@
             // ResultLabel
             // 
             ResultLabel.AutoSize = true;
-            ResultLabel.Font = new Font("Segoe UI Black", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            ResultLabel.Font = new Font("Segoe UI Black", 14F, FontStyle.Bold, GraphicsUnit.Point);
             ResultLabel.Location = new Point(21, 22);
             ResultLabel.Name = "ResultLabel";
-            ResultLabel.Size = new Size(87, 30);
+            ResultLabel.Size = new Size(80, 25);
             ResultLabel.TabIndex = 1;
             ResultLabel.Text = "Results";
             ResultLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -64,6 +64,7 @@
             Controls.Add(ResultLabel);
             Name = "ResultsForm";
             Text = "Results";
+            Load += ResultsForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

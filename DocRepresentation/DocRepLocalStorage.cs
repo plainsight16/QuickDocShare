@@ -14,6 +14,7 @@ namespace DocRepresentation
     {
         private string path;
 
+
         public DocRepLocalStorage(string path)
         {
             this.path = path;  

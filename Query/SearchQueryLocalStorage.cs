@@ -9,7 +9,7 @@ namespace Query
 {
     public class SearchQueryLocalStorage
     {
-        private static string path = @"..\..\..\..\Files\queries.json";
+        private static string path = @"..\..\..\..\Files\Databases\queries.json";
 
         /// <summary>
         /// Serializes an object to a JSON file.
