@@ -20,7 +20,7 @@ namespace SearchEngineGUI
 
         private void InitializeIndexer()
         {
-            DocumentRepresentation docRep = DocRepLocalStorage.LoadObjectFromFile();
+            DocumentRepresentation docRep = new DocRepLocalStorage(@"..\..\..\..\Files\Databases\db.json").LoadObjectFromFile();
             mergedIndex = docRep.mergedIndex;
         }
 
@@ -57,7 +57,7 @@ namespace SearchEngineGUI
             if (!searchQueries.Contains(query))
             {
                 searchQueries.Add(query);
-                SearchQueryLocalStorage.AddQuery(query);
+                new SearchQueryLocalStorage(@"..\..\..\..\Files\Databases\queries.json").AddQuery(query);
             }
 
             stopwatch.Start();
