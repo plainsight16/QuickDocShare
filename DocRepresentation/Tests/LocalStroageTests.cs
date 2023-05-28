@@ -7,14 +7,16 @@ namespace DocRepresentation.Tests
     [TestFixture]
     public class LocalStorageTests
     {
-        private string testFilePath = "test_db.json";
+        private string testFilePath = @"..\..\..\..\Files\test_db.json";
         private DocumentRepresentation testObject;
+        private string filepath = "file1.txt";
+        private string fileContent = "test file content";
 
         [SetUp]
         public void SetUp()
         {
             Dictionary<string, string> testDict = new Dictionary<string, string>();
-            testDict.Add(testFilePath, "test file content");
+            testDict.Add(filepath, fileContent);
             // Create a test object
             testObject = new DocumentRepresentation(testDict);         
         }
@@ -23,7 +25,7 @@ namespace DocRepresentation.Tests
         public void SaveObjectToFile_SerializesObjectToJSONFile()
         {
             // Arrange
-            LocalStorage.SaveObjectToFile(testObject);
+            new DocRepLocalStorage(testFilePath).SaveObjectToFile(testObject);
 
             // Assert
             Assert.IsTrue(File.Exists(testFilePath));
@@ -31,7 +33,7 @@ namespace DocRepresentation.Tests
             DocumentRepresentation deserializedObject = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentRepresentation>(json);
             Assert.AreEqual(testObject.mergedIndex.Count, deserializedObject.mergedIndex.Count);
             Assert.IsTrue(deserializedObject.mergedIndex.ContainsKey(testFilePath));
-            Assert.AreEqual(testObject.FilePaths[testFilePath], deserializedObject.FilePaths[testFilePath]);
+            Assert.AreEqual(testObject.FilePaths.Contains(filepath), deserializedObject.FilePaths.Contains(filepath));
         }
 
         [Test]
@@ -43,12 +45,12 @@ namespace DocRepresentation.Tests
             File.WriteAllText(testFilePath, json);
 
             // Act
-            DocumentRepresentation loadedObject = LocalStorage.LoadObjectFromFile();
+            DocumentRepresentation loadedObject = new DocRepLocalStorage(testFilePath).LoadObjectFromFile();
 
             // Assert
             Assert.AreEqual(testObject.FilePaths.Count, loadedObject.FilePaths.Count);
-            Assert.IsTrue(loadedObject.FilePaths.ContainsKey(testFilePath));
-            Assert.AreEqual(testObject.FilePaths[testFilePath], loadedObject.FilePaths[testFilePath]);
+            Assert.IsTrue(loadedObject.FilePaths.Contains(filepath));
+            Assert.AreEqual(testObject.FilePaths.Contains(filepath), loadedObject.FilePaths.Contains(filepath));
         }
 
         [TearDown]
