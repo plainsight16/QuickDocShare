@@ -5,9 +5,10 @@ using System.IO;
 namespace DocRepresentation.Tests
 {
     [TestFixture]
-    public class LocalStorageTests
+    public class DocRepLocalStorageTests
     {
-        private string testFilePath = @"..\..\..\..\Files\test_db.json";
+        private static string testFilePath = @"..\..\..\..\Files\test_db.json";
+        private FileStream fs = File.Create(testFilePath);
         private DocumentRepresentation testObject;
         private string filepath = "file1.txt";
         private string fileContent = "test file content";
