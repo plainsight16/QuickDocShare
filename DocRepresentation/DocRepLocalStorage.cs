@@ -12,13 +12,17 @@ namespace DocRepresentation
     /// </summary>
     public class DocRepLocalStorage
     {
-        private static string path = @"..\..\..\..\Files\db.json";
+        private string path;
 
+        public DocRepLocalStorage(string path)
+        {
+            this.path = path;  
+        }
         /// <summary>
         /// Serializes an object to a JSON file.
         /// </summary>
         /// <param name="myObject">The object to be serialized.</param>
-        public static void SaveObjectToFile(DocumentRepresentation myObject)
+        public void SaveObjectToFile(DocumentRepresentation myObject)
         {
             // Serialize the object to JSON
             string json = JsonConvert.SerializeObject(myObject);
@@ -31,7 +35,7 @@ namespace DocRepresentation
         /// Deserializes an object from a JSON file.
         /// </summary>
         /// <returns>The deserialized object.</returns>
-        public static DocumentRepresentation LoadObjectFromFile()
+        public DocumentRepresentation LoadObjectFromFile()
         {
             // Read the JSON from the file
             string json = File.ReadAllText(path);

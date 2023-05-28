@@ -15,6 +15,7 @@ namespace DocRepresentation
     {
         Tokenize tokens;
         InvertIndex index;
+        public List<string> FilePaths;
 
         /// <summary>
         /// Gets or sets the merged inverted index of the documents.
@@ -27,6 +28,8 @@ namespace DocRepresentation
         /// <param name="doc_texts">A dictionary containing document texts with their corresponding file paths.</param>
         public DocumentRepresentation(Dictionary<string, string> doc_texts)
         {
+            // Create a list of file paths
+            FilePaths = doc_texts.Keys.ToList();
 
             // Create a Tokenize object and pass the document texts to tokenize them
             tokens = new Tokenize(doc_texts);
@@ -37,7 +40,7 @@ namespace DocRepresentation
             mergedIndex = index.GetMergedIndex();
 
             // Save the DocumentRepresentation object to a file using JSON serialization
-            DocRepLocalStorage.SaveObjectToFile(this);
+            new DocRepLocalStorage(@"..\..\..\..\Files\db.json").SaveObjectToFile(this);
 
             //foreach (var kvp in index.GetMergedIndex())
             //{
