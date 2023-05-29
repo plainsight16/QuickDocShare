@@ -56,10 +56,5 @@ namespace Query
             }
             SaveObjectToFile(searchQuery);
         }
-
-        public static void Guy()
-        {
-
-        }
     }
 }
