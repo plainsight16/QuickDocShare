@@ -36,7 +36,7 @@ namespace DocRepresentation
         /// </summary>
         /// <param name="doc_id">The document ID associated with the token.</param>
         /// <param name="token">The token string.</param>
-        /// <param name="filePath">The token string.</param>
+        /// <param name="filePath">The file path for the token.</param>
         public Token(int doc_id, string token, string filePath)
         {
             this.doc_id = doc_id;

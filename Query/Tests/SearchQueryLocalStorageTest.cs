@@ -10,7 +10,7 @@ namespace Query.Tests
         FileStream fs = File.Create(testFilePath);
         private SearchQueryLocalStorage localStorage;
 
-        [Setup]
+        [SetUp]
         public void Setup()
         {
             localStorage = new SearchQueryLocalStorage(testFilePath);

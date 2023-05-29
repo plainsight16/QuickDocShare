@@ -15,6 +15,9 @@ namespace DocRepresentation
     {
         Tokenize tokens;
         InvertIndex index;
+        /// <summary>
+        /// Gets or sets the list of file paths.
+        /// </summary>
         public List<string> FilePaths;
 
         /// <summary>
