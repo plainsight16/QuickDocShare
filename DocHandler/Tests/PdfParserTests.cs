@@ -11,7 +11,7 @@ namespace DocHandler.Tests
     public class PdfParserTests
     {
         private PdfParser parser;
-        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
+        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\Documents\";
         string filePath = path + "pdf_test_file.pdf";
 
         [SetUp]

@@ -15,10 +15,14 @@ namespace DocHandler
         /// </summary>
         /// <param name="fileName">The path to the document file.</param>
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
-        public override bool CanParse(string fileName)
+        public override bool CanParse(string filePath)
         {
-            string fileExtension = Path.GetExtension(fileName);
-            return fileExtension.Equals(".xlsx");
+            if (Path.Exists(filePath))
+            {
+                string fileExtension = Path.GetExtension(filePath);
+                return fileExtension.Equals(".xlsx");
+            }
+            return false;
         }
 
         /// <summary>

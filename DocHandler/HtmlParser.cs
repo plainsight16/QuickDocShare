@@ -14,8 +14,12 @@ namespace DocHandler
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string filePath)
         {
-            string fileExtension = Path.GetExtension(filePath);
-            return fileExtension.Equals(".html");
+            if (Path.Exists(filePath))
+            {
+                string fileExtension = Path.GetExtension(filePath);
+                return fileExtension.Equals(".html");
+            }
+            return false;
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace DocHandler
             htmlDoc.Load(filePath);
 
             // Extract the HTML content as a string
-            string htmlString = htmlDoc.DocumentNode.OuterHtml;
+            string htmlString = htmlDoc.DocumentNode.InnerText;
             return htmlString;
         }
     }

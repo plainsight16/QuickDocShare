@@ -18,8 +18,12 @@ namespace DocHandler
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string filePath)
         {
-            string fileExtension = Path.GetExtension(filePath);
-            return fileExtension.Equals(".pptx");
+            if (Path.Exists(filePath))
+            {
+                string fileExtension = Path.GetExtension(filePath);
+                return fileExtension.Equals(".pptx");
+            }
+            return false;
         }
 
         /// <summary>
@@ -46,7 +50,7 @@ namespace DocHandler
                             text += GetSlideText(slide);
                         }
                     }
-                    return text;
+                    return text.Trim();
                 }
             }
             return null;

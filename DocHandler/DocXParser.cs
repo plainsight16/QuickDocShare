@@ -18,9 +18,13 @@ namespace DocHandler
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string filePath)
         {
+            if (Path.Exists(filePath))
+            {
 
-            string fileExtension = System.IO.Path.GetExtension(filePath);
-            return fileExtension.Equals(".docx");
+                string fileExtension = System.IO.Path.GetExtension(filePath);
+                return fileExtension.Equals(".docx");
+            }
+            return false;
         }
 
         /// <summary>

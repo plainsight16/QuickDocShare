@@ -43,12 +43,12 @@ namespace DocRepresentation
             mergedIndex = index.GetMergedIndex();
 
             // Save the DocumentRepresentation object to a file using JSON serialization
-            new DocRepLocalStorage(@"..\..\..\..\Files\db.json").SaveObjectToFile(this);
+            new DocRepLocalStorage(@"..\..\..\..\Files\Databases\db.json").SaveObjectToFile(this);
 
-            //foreach (var kvp in index.GetMergedIndex())
-            //{
-            //    Console.WriteLine("Term: {0}, Postings lists: {1}", kvp.Key, String.Join(", ", kvp.Value));
-            //}
+            foreach (var kvp in index.GetMergedIndex())
+            {
+                Console.WriteLine("Term: {0}, Postings lists: {1}", kvp.Key, String.Join(", ", kvp.Value));
+            }
         }
 
         /// <summary>

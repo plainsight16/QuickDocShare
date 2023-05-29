@@ -24,14 +24,19 @@ namespace DocRepresentation.Tests
         public void GetMergedIndex_ConstructsInvertedIndex_WithCorrectTermsAndDocumentIDs()
         {
             // Arrange
+            Token appleFile1 = new Token(1, "apple", "file1.txt");
+            Token appleFile3 = new Token(3, "apple", "file3.txt");
+            Token bananaFile2 = new Token(2, "banana", "file2.txt");
+            Token bananaFile3 = new Token(3, "banana", "file3.txt");
+            Token orangeFile3 = new Token(3, "orange", "file3.txt");
+
             List<Token> tokens = new List<Token>
             {
-                new Token(1, "apple", "file1.txt"),
-                new Token(2, "banana", "file2.txt"),
-                new Token(3, "orange", "file3.txt"),
-                new Token(2, "banana", "file2.txt"),
-                new Token(3, "apple", "file3.txt"),
-                new Token(3, "banana", "file3.txt")
+                appleFile1,
+                bananaFile2,
+                orangeFile3,
+                appleFile3,
+                bananaFile3,
             };
 
             InvertIndex invertIndex = new InvertIndex(tokens);
@@ -45,22 +50,21 @@ namespace DocRepresentation.Tests
             Assert.IsTrue(mergedIndex.ContainsKey("apple"));
             CollectionAssert.AreEquivalent(new List<Token>
             {
-                new Token(1, "apple", "file1.txt"),
-                new Token(3, "apple", "file3.txt"),
-                new Token(3, "apple", "file3.txt")
+                appleFile3,
+                appleFile1,
             }, mergedIndex["apple"]);
 
             Assert.IsTrue(mergedIndex.ContainsKey("banana"));
             CollectionAssert.AreEquivalent(new List<Token>
             {
-                new Token(2, "banana", "file2.txt"),
-                new Token(3, "banana", "file2.txt")
+                bananaFile2,
+                bananaFile3
             }, mergedIndex["banana"]);
 
             Assert.IsTrue(mergedIndex.ContainsKey("orange"));
             CollectionAssert.AreEquivalent(new List<Token>
             {
-                new Token(3, "orange", "file3.txt")
+                orangeFile3
             }, mergedIndex["orange"]);
         }
     }

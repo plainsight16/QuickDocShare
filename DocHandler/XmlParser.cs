@@ -13,8 +13,12 @@ namespace DocHandler
         /// <returns>True if the parser can handle the file; otherwise, false.</returns>
         public override bool CanParse(string filePath)
         {
-            string fileExtension = Path.GetExtension(filePath);
-            return fileExtension.Equals(".xml");
+            if (Path.Exists(filePath))
+            {
+                string fileExtension = Path.GetExtension(filePath);
+                return fileExtension.Equals(".xml");
+            }
+            return false;
         }
 
         /// <summary>
@@ -27,7 +31,7 @@ namespace DocHandler
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filePath);
 
-            string xmlString = xmlDoc.OuterXml;
+            string xmlString = xmlDoc.InnerText;
             return xmlString;
         }
     }

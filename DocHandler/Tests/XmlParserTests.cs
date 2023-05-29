@@ -7,7 +7,7 @@ namespace DocHandler.Tests
     public class XmlParserTests
     {
         private XmlParser parser;
-        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
+        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\Documents\";
         string filePath = path + "xml_test_file.xml";
 
         [SetUp]
@@ -43,7 +43,7 @@ namespace DocHandler.Tests
         public void ParseDocument_ValidFile_ReturnsContent()
         {
             // Arrange
-            string expectedContent = "This is the content of the document.";
+            string expectedContent = "Hello";
 
             // Act
             string result = parser.parseDocument(filePath).Trim();

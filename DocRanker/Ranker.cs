@@ -1,5 +1,4 @@
 ﻿using DocRepresentation;
-using DocumentFormat.OpenXml.Office2010.Word;
 using System;
 using System.Collections.Generic;
 using System.Linq;

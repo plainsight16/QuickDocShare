@@ -1,5 +1,5 @@
 using NUnit.Framework;
-
+using System.Text;
 
 namespace DocHandler.Tests
 {
@@ -7,7 +7,7 @@ namespace DocHandler.Tests
     public class DocXParserTests
     {
         private DocXParser parser;
-        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
+        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\Documents\";
         string filePath = path + "DocX_test_file.docx";
 
         [SetUp]
@@ -46,7 +46,9 @@ namespace DocHandler.Tests
             string expectedContent = "This is the content of the document.";
 
             // Act
-            string result = parser.parseDocument(filePath).Trim();
+            byte[] bomBytes = Encoding.UTF8.GetBytes("\uFEFF");
+            char[] bomChars = Encoding.UTF8.GetString(bomBytes).ToCharArray();
+            string result = parser.parseDocument(filePath).Trim().TrimStart(bomChars);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected: expectedContent));

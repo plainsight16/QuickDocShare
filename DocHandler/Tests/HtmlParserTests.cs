@@ -7,7 +7,7 @@ namespace DocHandler.Tests
     public class HtmlParserTests
     {
         private HtmlParser parser;
-        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\";
+        static string path = @"C:\Users\Julius Alibrown\Desktop\class\Project\new\search-engine\Files\Documents\";
         string filePath = path + "html_test_file.html";
 
         [SetUp]

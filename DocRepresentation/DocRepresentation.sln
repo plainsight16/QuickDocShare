@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocRepresentation", "DocRepresentation.csproj", "{9185A301-4375-4956-9BB4-E4872879B9BF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocHandler", "..\DocHandler\DocHandler.csproj", "{7CA14ECB-2CE4-4F2B-9557-1A59F6119C55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9185A301-4375-4956-9BB4-E4872879B9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA14ECB-2CE4-4F2B-9557-1A59F6119C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA14ECB-2CE4-4F2B-9557-1A59F6119C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA14ECB-2CE4-4F2B-9557-1A59F6119C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA14ECB-2CE4-4F2B-9557-1A59F6119C55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,18 +4,20 @@ using System;
 namespace Query.Tests
 {
     [TestFixture]
-    internal class SearchQueryLocalStorageTests
+    public class SearchQueryLocalStorageTests
     {
-        private static string testFilePath = @"..\..\..\..\Files\test_SQdb.json";
-        FileStream fs = File.Create(testFilePath);
+        private static string testFilePath = @"..\..\..\..\Files\Databases\test_SQdb.json";
         private SearchQueryLocalStorage localStorage;
 
         [SetUp]
         public void Setup()
         {
+            using (FileStream stream = File.Create(testFilePath))
+            {
+
+            }
+
             localStorage = new SearchQueryLocalStorage(testFilePath);
-
-
         }
 
          [TearDown]
