@@ -11,6 +11,10 @@ namespace Query
     {
         private string path;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchQueryLocalStorage"/> class with the specified file path.
+        /// </summary>
+        /// <param name="path"></param>
         public SearchQueryLocalStorage(string path)
         {
             this.path = path;
@@ -42,6 +46,10 @@ namespace Query
             return JsonConvert.DeserializeObject<SearchQuery>(json);
         }
 
+        /// <summary>
+        /// Adds a query to the list of previous search queries
+        /// </summary>
+        /// <param name="query"></param>
         public void AddQuery(string query)
         {
             SearchQuery searchQuery = LoadObjectFromFile();
